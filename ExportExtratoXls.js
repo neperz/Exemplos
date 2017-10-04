@@ -1,4 +1,4 @@
-// JavaScript source code
+// usar no Console do Chrome ou Firefox para exportar o mês atual do guiabolso para excel
 
 
 var TAB = "\t";
