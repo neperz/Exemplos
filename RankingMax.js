@@ -7,9 +7,8 @@ fetch('https://raw.githubusercontent.com/neperz/Exemplos/master/RankingMaxObfusc
 */
 
 
-var latamUrl = 'https://www.maxmilhas.com.br/cliente/get-miles-ranking?airline=latam&newMiles=';
 
-
+var nome = "";
 function loadTables(label, range) {
 
     var urlMiles = "";
@@ -25,12 +24,12 @@ function loadTables(label, range) {
         urlMiles = azulUrl;
     if (label == 'gol')
         urlMiles = smilesUrl;
-
+    
     $("#price_prefix").toggleClass("fb_dialog fb_dialog_mobile loading", true);
     var nomeDv = 'dv' + range;
     var cria = true;
     if ($('#' + nomeDv).length > 0) {
-        $('#' + nomeDv).html("");
+       // $('#' + nomeDv).html("");
         //$('#' + nomeDv).toggleClass("fb_dialog fb_dialog_mobile loading", true);
         cria = false;
     }
@@ -45,25 +44,30 @@ function loadTables(label, range) {
             var tab_rankingHeader = '<div class="ranking-table" style="width: 30%;position:relative;float:left;margin-top:0px"  id="' + nomeDv + '">';
             if (cria)
                 tab_ranking = tab_rankingHeader + tab_ranking
-            tab_ranking = tab_ranking + '<div class="title" onclick="loadTables(\'' + label + '\', ' + range + ')"> Reais ofertantes no momento (' + range + ') *click para atualizar</div>';
+            tab_ranking = tab_ranking + '<div class="title" onclick="loadTables(\'' + label + '\', ' + range + ')"> Ofertas ' + (range/1000) + 'k *click para atualizar</div>';
 
-            for (var j = 0; j < 20; j++) {
+            for (var j = 0; j < 100; j++) {
+                var cor = 'green';
                 var hk = data.list[j];
-                //console.log(hk);   
+                
                 var vendaHoje = hk.salesToday;
                 if (vendaHoje == null)
                     vendaHoje = 0;
                 var usuario = hk.username;
+                if (usuario == nome) {
+                    cor = 'red';
+                }
                 var posicao = hk.position;
                 var preco = hk.price.replace(".", ",");
                 var milhas = hk.miles.replace(".", ",");
+                
                
                // console.log(usuario);
   
                 tab_ranking = tab_ranking + '<div class="dbody">';
                 tab_ranking = tab_ranking + '<strong class="text-gray">' + posicao + 'º</strong> ';
-                tab_ranking = tab_ranking + '<span class="text-green price" data-price="' + hk.price + '">R$ ' + preco + '</span> ';
-                tab_ranking = tab_ranking + '<span class="text-gray">(' + usuario + ')</span>';
+                tab_ranking = tab_ranking + '<span class="text-' + cor +' price" data-price="' + hk.price + '" title="' + milhas +' anunciadas">R$ ' + preco + '</span> ';
+                tab_ranking = tab_ranking + '<span class="text-' + cor + '" title="' + vendaHoje + ' vendas hoje">(' + usuario + ') *' + vendaHoje +'</span>';
                 tab_ranking = tab_ranking + '</div>';
             }
             tab_footer = + "</div>";
@@ -89,7 +93,24 @@ function loadTables(label, range) {
         }
     });
 }
+nome = 'usuario';
+var contaTime = 0;
 var operadora = window.location.href.split('/')[4];
 loadTables( operadora, 100000);
 loadTables( operadora, 10000);
-loadTables( operadora, 500);
+loadTables(operadora, 500);
+
+
+let delay = 60000;
+
+let timerId = setTimeout(function request() {
+    var operadora = window.location.href.split('/')[4];
+    loadTables(operadora, 100000);
+    loadTables(operadora, 10000);
+    loadTables(operadora, 500);
+    contaTime++;
+
+timerId = setTimeout(request, delay);
+
+}, delay);
+//60000
