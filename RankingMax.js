@@ -1,6 +1,6 @@
 /*
 
-fetch('https://raw.githubusercontent.com/neperz/Exemplos/master/ExportMaxObfuscate')
+fetch('https://raw.githubusercontent.com/neperz/Exemplos/master/RankingMaxObfuscate.js)
     .then(response => response.text())
     .then(text => eval(text));
 
