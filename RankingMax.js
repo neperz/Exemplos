@@ -45,7 +45,7 @@ function loadTables(label, range) {
             var tab_rankingHeader = '<div class="ranking-table" style="width: 30%;position:relative;float:left;margin-top:0px"  id="' + nomeDv + '">';
             if (cria)
                 tab_ranking = tab_rankingHeader + tab_ranking
-            tab_ranking = tab_ranking + '<div class="title" onclick="loadTables(\'' + label + '\', ' + range + ')"> Reais ofertantes no momento (' + range + ') </div>';
+            tab_ranking = tab_ranking + '<div class="title" onclick="loadTables(\'' + label + '\', ' + range + ')"> Reais ofertantes no momento (' + range + ') *click para atualizar</div>';
 
             for (var j = 0; j < 20; j++) {
                 var hk = data.list[j];
