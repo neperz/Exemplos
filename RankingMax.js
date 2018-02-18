@@ -41,10 +41,11 @@ function displayTime() {
 var nome = "";
 var salvar = false;
 $("<div/>", {
-    html: "<input type='checkbox' id='chkSalvar'> Download automático do report",
+    html: "<input type='checkbox' id='chkSalvar'> Download automático do report<br> Nome do usuário:<input id='txtUser'>",
     id: 'dvCheckbox', 
     click: function () {
-        salvar = $('#chkSalvar').is(":checked")
+        salvar = $('#chkSalvar').is(":checked");
+        nome = $('#txtUser').val();
     },
     insertBefore: "#btn_register_miles"
 });
