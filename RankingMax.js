@@ -40,8 +40,9 @@ function displayTime() {
 
 var nome = "";
 var salvar = false;
+var adsLocal =  '<p>Acesse o <a target="_new" href="https://t.me/joinchat/Cdtqg0TOxu5mRMUM4y57ew">grupo do nosso robô</a> no Telegram e fique por dentro das super ofertas que encontramos!</p>';
 $("<div/>", {
-    html: "<input type='checkbox' id='chkSalvar'> Download automático do report<br> Nome do usuário:<input id='txtUser'>",
+    html: "<input type='checkbox' id='chkSalvar'> Download automático do report<br> Nome do usuário:<input id='txtUser'>" + adsLocal,
     id: 'dvCheckbox', 
     click: function () {
         salvar = $('#chkSalvar').is(":checked");
