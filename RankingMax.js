@@ -1,11 +1,17 @@
 /*
-
-fetch('https://raw.githubusercontent.com/neperz/Exemplos/master/RankingMax.js')
+var tks = new Date().getTime();
+fetch('https://raw.githubusercontent.com/neperz/Exemplos/master/RankingMax.js?t=' + tks)
     .then(response => response.text())
     .then(text => eval(text))
     .then(() => {
-    setStartVars ('neperz', true);
-});
+
+        setStartVars('neperz', true);
+    }
+);
+
+var tks = new Date().getTime();
+var url = 'https://raw.githubusercontent.com/neperz/Exemplos/master/RankingMax.js?t=' + tks;
+$.getScript(url, function () { setStartVars ('neperz', true); })
 
 */
 
@@ -200,10 +206,14 @@ function loadTables(label, range) {
         }
     });
 }
+//**********************configuracoes**********
+//tempo de atualização
+let delay = 300000; //5 minutos
 //use seu usuario
 nome = 'usuario';
 //salvar arquivo
 salvar = false;
+//******************fim*********************
 var contaTime = 0;
 var operadora = window.location.href.split('/')[4];
 loadTables( operadora, 100000);
@@ -211,7 +221,7 @@ loadTables( operadora, 10000);
 loadTables(operadora, 500);
 
 
-let delay = 300000; //5 minutos
+
 
 let timerId = setTimeout(function request() {
     var operadora = window.location.href.split('/')[4];
@@ -223,4 +233,3 @@ let timerId = setTimeout(function request() {
 timerId = setTimeout(request, delay);
 
 }, delay);
-//60000
