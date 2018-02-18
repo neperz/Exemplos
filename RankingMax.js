@@ -1,10 +1,10 @@
 /*
 
-fetch('https://raw.githubusercontent.com/neperz/Exemplos/master/RankingMaxObfuscate.js')
+fetch('https://raw.githubusercontent.com/neperz/Exemplos/master/RankingMax.js')
     .then(response => response.text())
     .then(text => eval(text))
     .then(() => {
-    setStartVars ('neperz', true);    
+    setStartVars ('neperz', true);
 });
 
 */
@@ -34,6 +34,7 @@ function displayTime() {
 
 var nome = "";
 var salvar = false;
+
 function setStartVars(user, saveOpt) {
     this.nome = user;
     this.salvar = saveOpt;
