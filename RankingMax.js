@@ -154,6 +154,7 @@ function loadTables(label, range) {
 
             for (var j = 0; j < 100; j++) {
                 var cor = 'green';
+                var corPreco = 'green';
                 var hk = data.list[j];
                 
                 var vendaHoje = hk.salesToday;
@@ -162,7 +163,10 @@ function loadTables(label, range) {
                 var usuario = hk.username;
                 if (usuario == nome) {
                     cor = 'red';
+                    corPreco = 'red';
                 }
+                if (vendaHoje > 5)
+                    corPreco = 'blue';
                 var posicao = hk.position;
                 var preco = hk.price.replace(".", ",");
                 var milhas = hk.miles.replace(".", ",");
@@ -172,7 +176,7 @@ function loadTables(label, range) {
   
                 tab_ranking = tab_ranking + '<div class="dbody">';
                 tab_ranking = tab_ranking + '<strong class="text-gray">' + posicao + 'º</strong> ';
-                tab_ranking = tab_ranking + '<span class="text-' + cor +' price" data-price="' + hk.price + '" title="' + milhas +' anunciadas">R$ ' + preco + '</span> ';
+                tab_ranking = tab_ranking + '<span class="text-' + corPreco +' price" data-price="' + hk.price + '" title="' + milhas +' anunciadas">R$ ' + preco + '</span> ';
                 tab_ranking = tab_ranking + '<span class="text-' + cor + '" title="' + vendaHoje + ' vendas hoje">(' + usuario + ') *' + vendaHoje +'</span>';
                 tab_ranking = tab_ranking + '</div>';
             }
