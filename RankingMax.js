@@ -40,7 +40,14 @@ function displayTime() {
 
 var nome = "";
 var salvar = false;
-
+$("<div/>", {
+    html: "<input type='checkbox' id='chkSalvar'> Download automático do report",
+    id: 'dvCheckbox', 
+    click: function () {
+        salvar = $('#chkSalvar').is(":checked")
+    },
+    insertBefore: "#btn_register_miles"
+});
 function setStartVars(user, saveOpt) {
     this.nome = user;
     this.salvar = saveOpt;
