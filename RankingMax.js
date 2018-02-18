@@ -54,13 +54,23 @@ function setStartVars(user, saveOpt) {
     this.salvar = saveOpt;
     alert(nome);
 }
-function DownloadExcel(data, fName)
+function DownloadExcel(data, empresa, range)
 {
+    var dt = new Date();
+    var day = dt.getDate();
+    var month = dt.getMonth() + 1;
+    var year = dt.getFullYear();
+    var hour = dt.getHours();
+    var mins = dt.getMinutes();
+    var postfix = day + "_" + month + "_" + year + "_" + hour + "_" + mins;
+    var dataField = year + '-' + month + '-' + day + ' ' + hour + ':' + mins + ':00';
+    var fName = empresa + '_Ranking_' + range + '_' + postfix + '.xls';
+    
     var TAB = "\t";
     var LF = "\n";
     var tab_ranking = "";
 
-    var tab_ranking = "Username" + TAB + "Posicao" + TAB + "Milhas" + TAB + "Preco" + TAB + "VendasHoje" + LF;
+    var tab_ranking = "Username" + TAB + "Posicao" + TAB + "Milhas" + TAB + "Preco" + TAB + "VendasHoje" + TAB + "DataConsulta" + TAB +"Empresa" + TAB + "Limite" + LF;
     for (var j = 0; j < data.list.length; j++) {
         var hk = data.list[j];
         var vendaHoje = hk.salesToday;
@@ -71,7 +81,7 @@ function DownloadExcel(data, fName)
         var preco = hk.price.replace(".", ",");
         var milhas = hk.miles.replace(".", ",");
 
-        tab_ranking = tab_ranking + usuario + TAB + posicao + TAB + milhas + TAB + preco + TAB + vendaHoje + LF;
+        tab_ranking = tab_ranking + usuario + TAB + posicao + TAB + milhas + TAB + preco + TAB + vendaHoje + TAB + dataField + TAB + empresa + TAB + range +  LF;
     }
     tab_ranking = tab_ranking + LF + LF;
 
@@ -129,16 +139,8 @@ function loadTables(label, range) {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            if (salvar) {
-                var dt = new Date();
-                var day = dt.getDate();
-                var month = dt.getMonth() + 1;
-                var year = dt.getFullYear();
-                var hour = dt.getHours();
-                var mins = dt.getMinutes();
-                var postfix = day + "_" + month + "_" + year + "_" + hour + "_" + mins;
-                var fName = label + '_Ranking_' + range + '_' + postfix + '.xls';
-                DownloadExcel(data, fName);
+            if (salvar) {                              
+                DownloadExcel(data, label, range);
             }
             var lastUpdate = displayTime();
            var tab_ranking = "";
