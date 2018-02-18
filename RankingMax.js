@@ -150,7 +150,7 @@ function loadTables(label, range) {
            // var tab_rankingHeader = '<div class="ranking-table" style="width: 30%;position:relative;float:left;margin-top:0px"  id="' + nomeDv + '">';
             //if (cria)
             //    tab_ranking = tab_rankingHeader + tab_ranking
-            tab_ranking = tab_ranking + '<div class="title"> Ofertas ' + (range / 1000) + 'k *click para atualizar<br>Atualizado em ' + lastUpdate + '</div>';
+            tab_ranking = tab_ranking + '<div class="title"> Ofertas ' + (range / 1000) + 'k *clique para atualizar<br>Atualizado em ' + lastUpdate + '</div>';
 
             for (var j = 0; j < 100; j++) {
                 var cor = 'green';
