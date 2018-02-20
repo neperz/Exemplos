@@ -2,11 +2,7 @@
 var tks = new Date().getTime();
 fetch('https://raw.githubusercontent.com/neperz/Exemplos/master/RankingMax.js?t=' + tks)
     .then(response => response.text())
-    .then(text => eval(text))
-    .then(() => {
-
-        setStartVars('neperz', true);
-    }
+    .then(text => eval(text))    
 );
 
 var tks = new Date().getTime();
@@ -39,7 +35,9 @@ function displayTime() {
 }
 
 var nome = "";
+var lpos = "";
 var salvar = false;
+var idUserTelegram = 0;
 var adsLocal =  '<p>Acesse o <a target="_new" href="https://t.me/joinchat/Cdtqg0TOxu5mRMUM4y57ew">grupo do nosso robô</a> no Telegram e fique por dentro das super ofertas que encontramos!</p>';
 $("<div/>", {
     html: "<input type='checkbox' id='chkSalvar'> Download automático do report<br> Nome do usuário:<input id='txtUser'>" + adsLocal,
@@ -165,6 +163,21 @@ function loadTables(label, range) {
                 if (usuario == nome) {
                     cor = 'red';
                     corPreco = 'red';
+                    if (lpos != hk.position) {
+                        console.log('diferent');
+                        if (idUserTelegram != 0) {
+                            var tks = new Date().getTime();
+                            var msg = 'R.' + range +': usuário ' + usuario + ' subiru de ' + lpos + ' para ' + hk.position;
+                            console.log(msg);
+                            var url = 'https://script.google.com/macros/s/AKfycbyOpmoxdr8hn2CvQ99uxV2kGZkviudHcoRhm5Tk-jdKkL-cx1dj/exec?max=1&idu=' + idUserTelegram + '&msg=' + msg + '&t=' + tks;
+                            console.log(url);
+                            lpos = hk.position;
+                            $.get(url, function (data, status) {                                 
+                                console.log('msg enviada');
+                                
+                            });
+                        }
+                    }
                 }
                 if (vendaHoje > 5)
                     corPreco = 'blue';
@@ -226,6 +239,7 @@ function loadTables(label, range) {
 let delay = 300000; //5 minutos
 //use seu usuario
 nome = 'usuario';
+idUserTelegram = 0;
 //salvar arquivo
 salvar = false;
 //******************fim*********************
