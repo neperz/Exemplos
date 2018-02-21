@@ -37,10 +37,10 @@ function displayTime() {
 var nome = "";
 var lpos = "";
 var salvar = false;
-var idUserTelegram = 0;
-var adsLocal =  '<p>Acesse o <a target="_new" href="https://t.me/joinchat/Cdtqg0TOxu5mRMUM4y57ew">grupo do nosso robÙ</a> no Telegram e fique por dentro das super ofertas que encontramos!</p>';
+var idUserTelegram = '0';
+var adsLocal =  '<p>Acesse o <a target="_new" href="https://t.me/joinchat/Cdtqg0TOxu5mRMUM4y57ew">grupo do nosso rob√¥</a> no Telegram e fique por dentro das super ofertas que encontramos!</p>';
 $("<div/>", {
-    html: "<input type='checkbox' id='chkSalvar'> Download autom·tico do report<br> Nome do usu·rio:<input id='txtUser'>" + adsLocal,
+    html: "<input type='checkbox' id='chkSalvar'> Download autom√°tico do report<br> Nome do usu√°rio:<input id='txtUser'>" + adsLocal,
     id: 'dvCheckbox', 
     click: function () {
         salvar = $('#chkSalvar').is(":checked");
@@ -160,36 +160,66 @@ function loadTables(label, range) {
                 if (vendaHoje == null)
                     vendaHoje = 0;
                 var usuario = hk.username;
-                if (usuario == nome) {
-                    cor = 'red';
-                    corPreco = 'red';
-                    if (lpos != hk.position) {
-                        console.log('diferent');
-                        if (idUserTelegram != 0) {
-                            var tks = new Date().getTime();
-                            var msg = 'R.' + range +': usu·rio ' + usuario + ' subiru de ' + lpos + ' para ' + hk.position;
-                            console.log(msg);
-                            var url = 'https://script.google.com/macros/s/AKfycbyOpmoxdr8hn2CvQ99uxV2kGZkviudHcoRhm5Tk-jdKkL-cx1dj/exec?max=1&idu=' + idUserTelegram + '&msg=' + msg + '&t=' + tks;
-                            console.log(url);
-                            lpos = hk.position;
-                            $.get(url, function (data, status) {                                 
-                                console.log('msg enviada');
-                                
-                            });
-                        }
-                    }
-                }
                 if (vendaHoje > 5)
                     corPreco = 'blue';
                 var posicao = hk.position;
                 var preco = hk.price.replace(".", ",");
                 var milhas = hk.miles.replace(".", ",");
+
+                if (usuario == nome) {
+                    cor = 'red';
+                    corPreco = 'red';
+                    if (lpos != hk.position) {
+                        console.log('diferent');
+                        if (idUserTelegram != '0') {
+                            var tks = new Date().getTime();
+                            var msg = 'R.' + range +': usu√°rio ' + usuario + ' mudou de ' + lpos + ' para ' + hk.position +' restam '+ milhas;
+                            console.log(msg);
+                            var urlTelegram = 'https://script.google.com/macros/s/AKfycbyOpmoxdr8hn2CvQ99uxV2kGZkviudHcoRhm5Tk-jdKkL-cx1dj/exec?max=1&idu=' + idUserTelegram + '&msg=' + msg + '&t=' + tks;
+                            
+                            lpos = hk.position;
+
+                            $('<iframe />', { id: 'myFrame', src: urlTelegram }).appendTo('body');
+
+                            // Get reference to the iframe element
+                            var iframe = $('#myFrame').get(0);
+
+                           /* $.ajax({
+                                type: "GET",
+                                url: urlTelegram,
+                                dataType: "jsonp",
+                                success: function (data) {
+                                    console.log(data);
+                                }
+                            });
+                            */
+                           // $.getJSON(urlTelegram, function (json) { });
+                            //var xhr = new XMLHttpRequest();
+                            //xhr.open("GET", urlTelegram, true);
+                            /*$.ajaxSetup({ dataType: "jsonp" });
+                            $.get(
+                                {
+                                    url: urlTelegram,
+                                    dataType: "jsonp",
+                                    jsonp: "callback",
+                                    data: {
+                                        q: "",
+                                        format: "json"
+                                    },                                    
+                                    success: function (response) {
+                                        console.log(response); // server response
+                                    }
+                                });*/
+                        }
+                    }
+                }
+
                 
                
                // console.log(usuario);
   
                 tab_ranking = tab_ranking + '<div class="dbody">';
-                tab_ranking = tab_ranking + '<strong class="text-gray">' + posicao + '∫</strong> ';
+                tab_ranking = tab_ranking + '<strong class="text-gray">' + posicao + '¬∫</strong> ';
                 tab_ranking = tab_ranking + '<span class="text-' + corPreco +' price" data-price="' + hk.price + '" title="' + milhas +' anunciadas">R$ ' + preco + '</span> ';
                 tab_ranking = tab_ranking + '<span class="text-' + cor + '" title="' + vendaHoje + ' vendas hoje">(' + usuario + ') *' + vendaHoje +'</span>';
                 tab_ranking = tab_ranking + '</div>';
@@ -235,11 +265,12 @@ function loadTables(label, range) {
     });
 }
 //**********************configuracoes**********
-//tempo de atualizaÁ„o
+//tempo de atualiza√ß√£o
 let delay = 300000; //5 minutos
 //use seu usuario
 nome = 'usuario';
-idUserTelegram = 0;
+//id do usu√°rio no telegram √© um numero n√£a o nome do usu√°rio deve seguir o bot @milhasbot para que ele possa enviar mensagens
+idUserTelegram = '0';
 //salvar arquivo
 salvar = false;
 //******************fim*********************
