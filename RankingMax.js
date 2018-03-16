@@ -37,6 +37,7 @@ function displayTime() {
 var nome = "";
 var lpos = "";
 var salvar = false;
+var vendasHoje = false;
 var idUserTelegram = '0';
 var adsLocal =  '<p>Acesse o <a target="_new" href="https://t.me/joinchat/Cdtqg0TOxu5mRMUM4y57ew">grupo do nosso robô</a> no Telegram e fique por dentro das super ofertas que encontramos!</p>';
 $("<div/>", {
@@ -45,6 +46,16 @@ $("<div/>", {
     click: function () {
         salvar = $('#chkSalvar').is(":checked");
         nome = $('#txtUser').val();
+    },
+    insertBefore: "#btn_register_miles"
+});
+
+$("<div/>", {
+    html: "<input type='checkbox' id='chkVendasHoje'> Ordenar por vendas hoje" ,
+    id: 'dvVendasHoje',
+    click: function () {
+        vendasHoje = $('#chkVendasHoje').is(":checked");      
+            LoadTudo();
     },
     insertBefore: "#btn_register_miles"
 });
@@ -133,6 +144,16 @@ function loadTables(label, range) {
         //$('#' + nomeDv).toggleClass("fb_dialog fb_dialog_mobile loading", true);
         cria = false;
     }
+
+    function sortJSON(data, key) {
+        return data.sort(function (a, b) {
+            var x = a[key];
+            var y = b[key];
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+    }
+
+
     $.ajax({
         url: urlMiles + range,
         type: 'GET',
@@ -140,6 +161,16 @@ function loadTables(label, range) {
         success: function (data) {
             if (salvar) {                              
                 DownloadExcel(data, label, range);
+            }
+            //data = data.sort((a, b) => Number(a.salesToday) - Number(b.salesToday));
+           // data.sort(GetSortOrder("salesToday")); 
+            if (vendasHoje) {
+                data.list.sortById = function () {
+                    this.sort(function (a, b) {
+                        return b.salesToday - a.salesToday;
+                    });
+                };
+                data.list.sortById();
             }
             var lastUpdate = displayTime();
            var tab_ranking = "";
@@ -150,18 +181,23 @@ function loadTables(label, range) {
             //if (cria)
             //    tab_ranking = tab_rankingHeader + tab_ranking
             tab_ranking = tab_ranking + '<div class="title"> Ofertas ' + (range / 1000) + 'k *clique para atualizar<br>Atualizado em ' + lastUpdate + '</div>';
-
-            for (var j = 0; j < 100; j++) {
+            var atual = 0;
+            var maior = 0;
+           
+            for (var j = 0; j < 2500; j++) {
                 var cor = 'green';
                 var corPreco = 'green';
                 var hk = data.list[j];
-                
+                if (!hk)
+                    continue;
                 var vendaHoje = hk.salesToday;
                 if (vendaHoje == null)
                     vendaHoje = 0;
                 var usuario = hk.username;
                 if (vendaHoje > 5)
                     corPreco = 'blue';
+                if (vendaHoje > 50)
+                    corPreco = 'red';
                 var posicao = hk.position;
                 var preco = hk.price.replace(".", ",");
                 var milhas = hk.miles.replace(".", ",");
@@ -268,7 +304,7 @@ function loadTables(label, range) {
 //tempo de atualização
 let delay = 300000; //5 minutos
 //use seu usuario
-nome = 'usuario';
+nome = 'nonono';
 //id do usuário no telegram é um numero nãa o nome do usuário deve seguir o bot @milhasbot para que ele possa enviar mensagens
 idUserTelegram = '0';
 //salvar arquivo
@@ -280,7 +316,12 @@ loadTables( operadora, 100000);
 loadTables( operadora, 10000);
 loadTables(operadora, 500);
 
-
+function LoadTudo() {
+    var operadora = window.location.href.split('/')[4];
+    loadTables(operadora, 100000);
+    loadTables(operadora, 10000);
+    loadTables(operadora, 500);
+}
 
 
 let timerId = setTimeout(function request() {
