@@ -17,7 +17,26 @@ var databasee = [],
 function roundToTwo(num) {
     return +(Math.round(num + "e+2") + "e-2");
 }
-
+function showInfo(usuario) {
+    const index = databasee.findIndex(_item => _item.usuario === usuario);
+    var atual = databasee[index];
+    var msg = "";
+    var html = "<b>" + atual.usuario + "</b><br>"
+    html += "<table border='1'><tr><th>Data</th><th>Posiçao</th><th>Oferta</th><th>Vendas Hoje</th><th>Total de Milhas</th></tr>";
+    if (atual.historico) {
+        for (var i = 0; i < atual.historico.length; i++) {
+            var datax = atual.historico[i];
+            html += "<tr><td> " + datax.atualizacao + '</td>';
+            html += "<td>  " + datax.posicao + '</td>';
+            html += "<td> " + roundToTwo(datax.price) + '</td>';
+            html += "<td>  " + datax.vendaHoje + '</td>';
+            html += "<td>  " + roundToTwo(datax.milhas) + '</td></tr>';            
+        }
+        html += "</table>";
+       // alert(msg);
+    }
+    $('#infohk').html(html);
+}
 function addOrReplace(object) { 
     
     const index = databasee.findIndex(_item => _item.usuario === object.usuario);
@@ -26,8 +45,20 @@ function addOrReplace(object) {
         var va = parseInt(atual.vendaHoje);
         var vo = parseInt(object.vendaHoje);
         if (va != vo) {            
-            object.updatecount = object.updatecount + 1;
+            object.updatecount = atual.updatecount + 1;
             object.atualizacao = displayTime();
+            object.index = index
+            if (atual.historico) {
+                atual.historico.push(object);
+                object.historico = atual.historico;
+            }
+            else {
+                var info = [];
+                info.push(object);
+                object.historico = atual.historico;
+            }
+
+            
             databasee[index] = object;
         }
         if (atual.usuario == nome) {
@@ -40,7 +71,13 @@ function addOrReplace(object) {
         
     }
     else {
-        databasee.push(object);        
+        var info = [];
+        object.historico = info;
+       
+        object.historico.push(object);
+        databasee.push(object);       
+        var indexx = databasee.findIndex(_item => _item.usuario === object.usuario);
+        object.index = indexx
     }
 
 }
@@ -108,7 +145,7 @@ $("<div/>", {
 });
 
 $("<div/>", {
-    html: "<input type='checkbox' id='chkVendasHoje'> Ordenar por vendas hoje",
+    html: "<input type='checkbox' id='chkVendasHoje'> Ordenar por vendas hoje<div id='infohk' style='text-align:left;font-size: 9pt;'></div>",
     id: 'dvVendasHoje',
     click: function () {
         vendasHoje = $('#chkVendasHoje').is(":checked");
@@ -269,7 +306,7 @@ function loadTables(label, range) {
                     usuario: usuario,
                     posicao: posicao,
                     price: hk.price,
-                    milhas: milhas,
+                    milhas: hk.miles,
                     vendaHoje: vendaHoje,
                     corPreco: corPreco,
                     cor:cor,
@@ -370,7 +407,7 @@ function printResult() {
         });
     };
     databasee.sortById();
-    for (var j = 0; j < 10; j++) {
+    for (var j = 0; j < 50; j++) {
         
         var hk = databasee[j];
         
@@ -379,7 +416,7 @@ function printResult() {
         var preco = roundToTwo(hk.price);//.replace(".", ",");
         
         tab_ranking = tab_ranking + '<div class="dbody">';
-        tab_ranking = tab_ranking + '<strong class="text-gray">' + hk.posicao + 'º</strong> ';
+        tab_ranking = tab_ranking + '<strong class="text-gray"><a href="javascript:showInfo(\'' + hk.usuario +'\')" >' + hk.posicao + 'º</a></strong> ';
         tab_ranking = tab_ranking + '<span class="text-' + hk.corPreco + ' price" data-price="' + hk.price + '" title="' + hk.milhas + ' anunciadas">R$ ' + preco + '</span> ';
         tab_ranking = tab_ranking + '<span class="text-' + hk.cor + '" title="' + hk.vendaHoje + ' vendas hoje">(' + hk.usuario + ') *' + hk.vendaHoje + ' ups: ' + hk.updatecount + ' - ' + hk.atualizacao + '</span>';
         tab_ranking = tab_ranking + '</div>';
@@ -396,9 +433,9 @@ function printResult() {
                 "float": "left",
                 "margin-top": "0px"
             },
-            click: function () {
-                printResult();
-            },
+            //click: function () {
+            //    printResult();
+            //},
             insertBefore: "#btn_register_miles"
         });
     }
