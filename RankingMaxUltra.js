@@ -188,7 +188,7 @@ function DownloadDatanase() {
     var fName = 'Ranking_' + postfix + '.json';
 
     var dataText = stringify(databasee);
- 
+    $('#txtData').val(dataText);
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");
 
@@ -543,7 +543,9 @@ $("<div/>", {
 });
 
 $("<div/>", {
-    html: "<input type='checkbox' id='chkVendasHoje'> Ordenar por vendas hoje<div id='infohk' style='text-align:left;font-size: 9pt;'>Base: <input type='file' id='dFile'> <input type='button' value='Download Data' onclick='DownloadDatanase()'> <input type='button' value='Load Data' onclick='loadFile()'></div>",
+    html: "<input type='checkbox' id='chkVendasHoje'> Ordenar por vendas hoje" +
+        "<div style='text-align:left;font-size: 9pt;'>Base: <input type='file' id='dFile'><button type='button' class='button green' id='btn_dlddata' onclick='DownloadDatanase()'><span class='button-text'>Download Data</span></button> <input type='hidden' id='txtData'><br> " +
+        "<button type='button' class='button green' id='btn_dlddata' onclick='loadFile()'><span class='button-text'>Load Data</span></button></div><div id='infohk' style='text-align:left;font-size: 9pt;'></div>",
     id: 'dvVendasHoje',
     click: function () {
         vendasHoje = $('#chkVendasHoje').is(":checked");
