@@ -17,6 +17,9 @@ var databasee = [],
 function roundToTwo(num) {
     return +(Math.round(num + "e+2") + "e-2");
 }
+function cleanInfo() {
+    $('#infohk').html('');
+}
 function showInfo(usuario) {
     const index = databasee.findIndex(_item => _item.usuario === usuario);
     var atual = databasee[index];
@@ -26,16 +29,23 @@ function showInfo(usuario) {
     if (atual.historico) {
         for (var i = 0; i < atual.historico.length; i++) {
             var datax = atual.historico[i];
-            html += "<tr><td> " + datax.atualizacao + '</td>';
-            html += "<td>  " + datax.posicao + '</td>';
-            html += "<td> " + roundToTwo(datax.price) + '</td>';
-            html += "<td>  " + datax.vendaHoje + '</td>';
-            html += "<td>  " + roundToTwo(datax.milhas) + '</td></tr>';            
+            html += "<tr><td> " + datax.atualizacao + "</td>";
+            html += "<td>  " + datax.posicao + "</td>";
+            html += "<td> " + roundToTwo(datax.price) + "</td>";
+            html += "<td>  " + datax.vendaHoje + "</td>";
+            html += "<td>  " + roundToTwo(datax.milhas) + "</td></tr>";            
         }
-        html += "</table>";
+        html += "</table><br><input type='button' onclick='cleanInfo()' value='limpar'>";
        // alert(msg);
     }
     $('#infohk').html(html);
+}
+function reBuildDatabase(sdata) {
+    var obj = JSON.parse(sdata);
+    for (var i = 0; i < obj.length; i++) {
+        var datx = obj[i];
+        addOrReplace(datx);
+    }
 }
 function addOrReplace(object) { 
     
@@ -72,38 +82,18 @@ function addOrReplace(object) {
     }
     else {
         var info = [];
-        object.historico = info;
-       
-        object.historico.push(object);
-        databasee.push(object);       
+        if (object.historico)
+            databasee.push(object);
+        else {
+            object.historico = info;
+            object.historico.push(object);
+            databasee.push(object);
+        }
         var indexx = databasee.findIndex(_item => _item.usuario === object.usuario);
         object.index = indexx
     }
 
 }
-//function addOrReplace(object) {    
-//    var tks = new Date().getTime();
-//    var index = arrIndex[object.usuario];
-   
-//    if (index === undefined) {
-//        index = databasee.length;        
-//    }
-//    else {     
-//        var atual = databasee[index];
-//        var va = parseInt(atual.vendaHoje);
-//        var vo = parseInt(object.vendaHoje);
-//        if (va != vo) {
-//            console.log(atual);
-//            console.log(object);
-//            object.updatecount = object.updatecount + 1;
-//            object.atualizacao = tks;
-//        }
-//    }    
-//    arrIndex[object.usuario] = index;    
-//    databasee[index] = object;    
-//}
-
-
 
 function displayTime() {
     var str = "";
@@ -128,31 +118,6 @@ function displayTime() {
     return str;
 }
 
-var nome = "";
-var lpos = "";
-var salvar = false;
-var vendasHoje = false;
-var idUserTelegram = '0';
-var adsLocal = '<p>Acesse o <a target="_new" href="https://t.me/joinchat/Cdtqg0TOxu5mRMUM4y57ew">grupo do nosso robô</a> no Telegram e fique por dentro das super ofertas que encontramos!</p>';
-$("<div/>", {
-    html: "<input type='checkbox' id='chkSalvar'> Download automático do report<br> Nome do usuário:<input id='txtUser'>" + adsLocal,
-    id: 'dvCheckbox',
-    click: function () {
-        salvar = $('#chkSalvar').is(":checked");
-        nome = $('#txtUser').val();
-    },
-    insertBefore: "#btn_register_miles"
-});
-
-$("<div/>", {
-    html: "<input type='checkbox' id='chkVendasHoje'> Ordenar por vendas hoje<div id='infohk' style='text-align:left;font-size: 9pt;'></div>",
-    id: 'dvVendasHoje',
-    click: function () {
-        vendasHoje = $('#chkVendasHoje').is(":checked");
-        LoadTudo();
-    },
-    insertBefore: "#btn_register_miles"
-});
 function setStartVars(user, saveOpt) {
     this.nome = user;
     this.salvar = saveOpt;
@@ -211,6 +176,68 @@ function DownloadExcel(data, empresa, range) {
 
 }
 
+function DownloadDatanase() {
+    var dt = new Date();
+    var day = dt.getDate();
+    var month = dt.getMonth() + 1;
+    var year = dt.getFullYear();
+    var hour = dt.getHours();
+    var mins = dt.getMinutes();
+    var postfix = day + "_" + month + "_" + year + "_" + hour + "_" + mins;
+    var dataField = year + '-' + month + '-' + day + ' ' + hour + ':' + mins + ':00';
+    var fName = 'Ranking_' + postfix + '.json';
+
+    var dataText = stringify(databasee);
+ 
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+    {
+        txtArea1.document.open("txt/html", "replace");
+        txtArea1.document.write(dataText);
+        txtArea1.document.close();
+        txtArea1.focus();
+        sa = txtArea1.document.execCommand("SaveAs", true, fName);
+    }
+    else                 //other browser not tested on IE 11
+    {
+        var a = document.createElement('a');
+        var data_type = 'data:application/json';
+        a.href = data_type + ', ' + encodeURIComponent(dataText);
+        a.download = fName;
+        a.click();
+        // e.preventDefault();
+    }
+
+}
+
+
+function stringify(obj, replacer, spaces, cycleReplacer) {
+    return JSON.stringify(obj, serializer(replacer, cycleReplacer), spaces)
+}
+
+function serializer(replacer, cycleReplacer) {
+    var stack = [], keys = []
+
+    if (cycleReplacer == null) cycleReplacer = function (key, value) {
+        if (stack[0] === value) return "[Circular ~]"
+        return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]"
+    }
+
+    return function (key, value) {
+        if (stack.length > 0) {
+            var thisPos = stack.indexOf(this)
+            ~thisPos ? stack.splice(thisPos + 1) : stack.push(this)
+            ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key)
+            if (~stack.indexOf(value)) value = cycleReplacer.call(this, key, value)
+        }
+        else stack.push(value)
+
+        return replacer == null ? value : replacer.call(this, key, value)
+    }
+}
+
 function loadTables(label, range) {
 
     var urlMiles = "";
@@ -237,6 +264,7 @@ function loadTables(label, range) {
         //$('#' + nomeDv).toggleClass("fb_dialog fb_dialog_mobile loading", true);
         cria = false;
     }
+
 
     function sortJSON(data, key) {
         return data.sort(function (a, b) {
@@ -321,7 +349,7 @@ function loadTables(label, range) {
                 tab_ranking = tab_ranking + '<div class="dbody">';
                 tab_ranking = tab_ranking + '<strong class="text-gray">' + posicao + 'º</strong> ';
                 tab_ranking = tab_ranking + '<span class="text-' + corPreco + ' price" data-price="' + hk.price + '" title="' + milhas + ' anunciadas">R$ ' + preco + '</span> ';
-                tab_ranking = tab_ranking + '<span class="text-' + cor + '" title="' + vendaHoje + ' vendas hoje">(' + usuario + ') *' + vendaHoje + '</span>';
+                tab_ranking = tab_ranking + '<span class="text-' + cor + '" title="' + vendaHoje + ' vendas hoje">(<a href="javascript:showInfo(\'' + usuario +'\')" >' + usuario + '</a>) *' + vendaHoje + '</span>';
                 tab_ranking = tab_ranking + '</div>';
                
             }
@@ -388,7 +416,8 @@ function printResult() {
 
         cria = false;
     }
-
+    var milhasparametro = $('#miles_price').val();
+    milhasparametro = parseFloat( milhasparametro.replace(',', '.'));
     var lastUpdate = displayTime();
     var tab_ranking = "";
     var tab_ranking_10000 = "";
@@ -414,10 +443,13 @@ function printResult() {
         if (!hk)
             continue;
         var preco = roundToTwo(hk.price);//.replace(".", ",");
-        
+        var marcaao = "";
+        if (hk.price >= milhasparametro) {
+            marcaao = " [PREÇO]";
+        }
         tab_ranking = tab_ranking + '<div class="dbody">';
-        tab_ranking = tab_ranking + '<strong class="text-gray"><a href="javascript:showInfo(\'' + hk.usuario +'\')" >' + hk.posicao + 'º</a></strong> ';
-        tab_ranking = tab_ranking + '<span class="text-' + hk.corPreco + ' price" data-price="' + hk.price + '" title="' + hk.milhas + ' anunciadas">R$ ' + preco + '</span> ';
+        tab_ranking = tab_ranking + '<strong class="text-gray"><a href="javascript:showInfo(\'' + hk.usuario + '\')" >' + hk.posicao + 'º</a></strong> ';
+        tab_ranking = tab_ranking + '<span class="text-' + hk.corPreco + ' price" data-price="' + hk.price + '" title="' + hk.milhas + ' anunciadas">R$ ' + preco + marcaao + '</span> ';
         tab_ranking = tab_ranking + '<span class="text-' + hk.cor + '" title="' + hk.vendaHoje + ' vendas hoje">(' + hk.usuario + ') *' + hk.vendaHoje + ' ups: ' + hk.updatecount + ' - ' + hk.atualizacao + '</span>';
         tab_ranking = tab_ranking + '</div>';
     }
@@ -450,6 +482,75 @@ function printResult() {
     }
 
 }
+
+
+function LoadTudo() {
+    var operadora = window.location.href.split('/')[4];
+    loadTables(operadora, 100000);
+    loadTables(operadora, 10000);
+    //loadTables(operadora, 500);
+    printResult();
+}
+
+function loadFile() {
+    var input, file, fr;
+
+    if (typeof window.FileReader !== 'function') {
+        alert("The file API isn't supported on this browser yet.");
+        return;
+    }
+
+    input = document.getElementById('dFile');
+    if (!input) {
+        alert("Um, couldn't find the fileinput element.");
+    }
+    else if (!input.files) {
+        alert("This browser doesn't seem to support the `files` property of file inputs.");
+    }
+    else if (!input.files[0]) {
+        alert("Please select a file before clicking 'Load'");
+    }
+    else {
+        file = input.files[0];
+        fr = new FileReader();
+        fr.onload = receivedText;
+        fr.readAsText(file);
+    }
+
+    function receivedText(e) {
+        lines = e.target.result;
+        reBuildDatabase(lines);
+        //var newArr = JSON.parse(lines);
+    }
+}
+
+
+
+var nome = "";
+var lpos = "";
+var salvar = false;
+var vendasHoje = false;
+var idUserTelegram = '0';
+var adsLocal = '<p>Acesse o <a target="_new" href="https://t.me/joinchat/Cdtqg0TOxu5mRMUM4y57ew">grupo do nosso robô</a> no Telegram e fique por dentro das super ofertas que encontramos!</p>';
+$("<div/>", {
+    html: "<input type='checkbox' id='chkSalvar'> Download automático do report<br> Nome do usuário:<input id='txtUser'>" + adsLocal,
+    id: 'dvCheckbox',
+    click: function () {
+        salvar = $('#chkSalvar').is(":checked");
+        nome = $('#txtUser').val();
+    },
+    insertBefore: "#btn_register_miles"
+});
+
+$("<div/>", {
+    html: "<input type='checkbox' id='chkVendasHoje'> Ordenar por vendas hoje<div id='infohk' style='text-align:left;font-size: 9pt;'>Base: <input type='file' id='dFile'> <input type='button' value='Download Data' onclick='DownloadDatanase()'> <input type='button' value='Load Data' onclick='loadFile()'></div>",
+    id: 'dvVendasHoje',
+    click: function () {
+        vendasHoje = $('#chkVendasHoje').is(":checked");
+        LoadTudo();
+    },
+    insertBefore: "#btn_register_miles"
+});
 //**********************configuracoes**********
 //tempo de atualização
 let delay = 70000; //5 minutos
@@ -467,15 +568,6 @@ loadTables(operadora, 10000);
 //loadTables(operadora, 500);
 printResult();
 
-function LoadTudo() {
-    var operadora = window.location.href.split('/')[4];
-    loadTables(operadora, 100000);
-    loadTables(operadora, 10000);
-    //loadTables(operadora, 500);
-    printResult();
-}
-
-
 let timerId = setTimeout(function request() {
     var operadora = window.location.href.split('/')[4];
     loadTables(operadora, 100000);
@@ -486,3 +578,4 @@ let timerId = setTimeout(function request() {
     timerId = setTimeout(request, delay);
 
 }, delay);
+
