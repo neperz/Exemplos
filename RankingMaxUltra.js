@@ -14,6 +14,7 @@ $.getScript(url, function () { setStartVars ('neperz', true); })
 */
 var databasee = [],
     arrIndex = {};
+var sortResult = 0;
 function roundToTwo(num) {
     return +(Math.round(num + "e+2") + "e-2");
 }
@@ -23,17 +24,23 @@ function cleanInfo() {
 function showInfo(usuario) {
     const index = databasee.findIndex(_item => _item.usuario === usuario);
     var atual = databasee[index];
+
+    var diffHrs = Math.floor((atual.minDiff % 86400000) / 3600000); // hours
+    var diffMins = Math.round(((atual.minDiff % 86400000) % 3600000) / 60000); // minutes
+
     var msg = "";
-    var html = "<b>" + atual.usuario + "</b><br>"
+    var html = "<b>" + atual.usuario + "  (" + diffHrs + " hours, " + diffMins + " minutes)</b><br>"
     html += "<table border='1'><tr><th>Data</th><th>Posiçao</th><th>Oferta</th><th>Vendas Hoje</th><th>Total de Milhas</th></tr>";
     if (atual.historico) {
         for (var i = 0; i < atual.historico.length; i++) {
             var datax = atual.historico[i];
-            html += "<tr><td> " + datax.atualizacao + "</td>";
-            html += "<td>  " + datax.posicao + "</td>";
-            html += "<td> " + roundToTwo(datax.price) + "</td>";
-            html += "<td>  " + datax.vendaHoje + "</td>";
-            html += "<td>  " + roundToTwo(datax.milhas) + "</td></tr>";            
+            if (datax.atualizacao) {
+                html += "<tr><td> " + datax.atualizacao + "</td>";
+                html += "<td>  " + datax.posicao + "</td>";
+                html += "<td> " + roundToTwo(datax.price) + "</td>";
+                html += "<td>  " + datax.vendaHoje + "</td>";
+                html += "<td>  " + roundToTwo(datax.milhas) + "</td></tr>";
+            }
         }
         html += "</table><br><input type='button' onclick='cleanInfo()' value='limpar'>";
        // alert(msg);
@@ -44,22 +51,37 @@ function reBuildDatabase(sdata) {
     var obj = JSON.parse(sdata);
     for (var i = 0; i < obj.length; i++) {
         var datx = obj[i];
-        addOrReplace(datx);
+        datx.dtAtualizacao = new Date(datx.dtAtualizacao);
+        if (datx.historico) {
+            for (var j = 0; j < datx.historico.length; j++) {
+                var dhist = datx.historico[j];
+                delete dhist.historico;
+                dhist.dtAtualizacao = new Date(dhist.dtAtualizacao);
+            }
+        }
+        if (datx.posicao)
+            addOrReplace(datx);
     }
 }
 function addOrReplace(object) { 
-    
+
+    var currentTime = new Date()
     const index = databasee.findIndex(_item => _item.usuario === object.usuario);
     if (index > -1) {
         var atual = databasee[index];
         var va = parseInt(atual.vendaHoje);
         var vo = parseInt(object.vendaHoje);
-        if (va != vo) {            
+        if (va != vo) {
+            object.dtAtualizacao = currentTime;
             object.updatecount = atual.updatecount + 1;
             object.atualizacao = displayTime();
+
             object.index = index
             if (atual.historico) {
-                atual.historico.push(object);
+                var objToAdd = object;
+
+                delete objToAdd.historico;
+                atual.historico.push(objToAdd);
                 object.historico = atual.historico;
             }
             else {
@@ -68,7 +90,7 @@ function addOrReplace(object) {
                 object.historico = atual.historico;
             }
 
-            
+            object.minDiff = detectFire(object.historico);
             databasee[index] = object;
         }
         if (atual.usuario == nome) {
@@ -82,6 +104,10 @@ function addOrReplace(object) {
     }
     else {
         var info = [];
+        if (!object.hasOwnProperty('dtAtualizacao'))
+        {
+            object.dtAtualizacao = currentTime;
+        }
         if (object.historico)
             databasee.push(object);
         else {
@@ -94,7 +120,23 @@ function addOrReplace(object) {
     }
 
 }
-
+function detectFire(hist) {
+    var max = hist.length;
+    var dAtual = 0;
+    var dMin = 0;
+    var t1 = hist[max-1].dtAtualizacao;
+    var t0 = hist[max - 2].dtAtualizacao
+   /* console.log('--');
+    console.log(t0 +' - '+ t1);
+    console.log('--');*/
+    if (t0) {         
+        if (t1)
+            dAtual = (t1 - t0);       
+    }
+    return dAtual;
+    //var minutos = Math.round(((dMin % 86400000) % 3600000) / 60000); 
+    //return minutos;
+}
 function displayTime() {
     var str = "";
 
@@ -329,12 +371,14 @@ function loadTables(label, range) {
                     corPreco = 'red';
                     
                 }
-                
+                var currentTime = new Date();
+
                 var xdata = {
                     usuario: usuario,
                     posicao: posicao,
                     price: hk.price,
                     milhas: hk.miles,
+                    dtAtualizacao : currentTime,
                     vendaHoje: vendaHoje,
                     corPreco: corPreco,
                     cor:cor,
@@ -381,7 +425,7 @@ function loadTables(label, range) {
             else {
                 $('#' + nomeDv).html(tab_ranking);
             }
-            printResult();
+            printResult(sortResult);
             //e.preventDefault();
            // console.log(databasee);
         },
@@ -400,7 +444,7 @@ function alertaTelegram(usr, de, para) {
             
             if (idUserTelegram != '0') {
                 var tks = new Date().getTime();
-                var msg = 'R.' + range + ': usuário ' + nome + ' mudou de ' + de + ' para ' + para + ' restam ' + usr.milhas;                
+                var msg = 'R.: usuário ' + nome + ' mudou de ' + de + ' para ' + para + ' restam ' + usr.milhas;                
                 var urlTelegram = 'https://script.google.com/macros/s/AKfycbyOpmoxdr8hn2CvQ99uxV2kGZkviudHcoRhm5Tk-jdKkL-cx1dj/exec?max=1&idu=' + idUserTelegram + '&msg=' + msg + '&t=' + tks;
                 
                 $('<iframe />', { id: 'myFrame', src: urlTelegram }).appendTo('body');
@@ -410,7 +454,8 @@ function alertaTelegram(usr, de, para) {
     }
 }
 
-function printResult() {
+function printResult(sort) {
+    sortResult = sort;
     var cria = true;
     if ($('#geralrk').length > 0) {
 
@@ -418,11 +463,11 @@ function printResult() {
     }
     var milhasparametro = $('#miles_price').val();
     milhasparametro = parseFloat( milhasparametro.replace(',', '.'));
-    var lastUpdate = displayTime();
+   
     var tab_ranking = "";
     var tab_ranking_10000 = "";
     var tab_ranking_500 = "";
-    tab_ranking = tab_ranking + '<div class="title"> Ultimas atualizações </div>';
+    tab_ranking = tab_ranking + '<div class="title"> Últimas atualizações </div>';
 
     //databasee
     /*
@@ -430,28 +475,55 @@ function printResult() {
     loadTables(operadora, 10000);
     loadTables(operadora, 500);
      */
-    databasee.sortById = function () {
-        this.sort(function (a, b) {
-            return b.updatecount - a.updatecount;
-        });
-    };
-    databasee.sortById();
-    for (var j = 0; j < 50; j++) {
+
+  
+    if (sort == 0) {
+        $('#oInfo').html("ID");
+        databasee.sortById = function () {
+            this.sort(function (a, b) {
+                return b.updatecount - a.updatecount;
+            });
+        };
+        databasee.sortById();
+    }
+    else {
+        $('#oInfo').html("Data");
+        databasee.sortByData = function () {
+            this.sort(function (a, b) {
+                return b.dtAtualizacao - a.dtAtualizacao;
+            });
+        };
+        databasee.sortByData();
+    }
+    var maxToDisplay = 50;
+    var contaToDisp = 0;
+    for (var j = 0; j < databasee.length; j++) {
+
+        var onfire = "";
         
         var hk = databasee[j];
         
         if (!hk)
             continue;
+        if (hk.updatecount == 1)
+            continue;
+        if (hk.minDiff>0)
+            if (hk.minDiff <= 223138)
+                onfire = "<img src='https://www.speedrun.com/themes/user/Polonxy/icon.png' style='max-width: 14px;max-height: 14px;margin-right: 2px;' alt='venda rapida'>"
         var preco = roundToTwo(hk.price);//.replace(".", ",");
         var marcaao = "";
         if (hk.price >= milhasparametro) {
             marcaao = " [PREÇO]";
         }
         tab_ranking = tab_ranking + '<div class="dbody">';
-        tab_ranking = tab_ranking + '<strong class="text-gray"><a href="javascript:showInfo(\'' + hk.usuario + '\')" >' + hk.posicao + 'º</a></strong> ';
+        tab_ranking = tab_ranking + '<strong class="text-gray"><a title="' + hk.dtAtualizacao +'" href="javascript:showInfo(\'' + hk.usuario + '\')" >' + hk.posicao + 'º</a></strong> ';
         tab_ranking = tab_ranking + '<span class="text-' + hk.corPreco + ' price" data-price="' + hk.price + '" title="' + hk.milhas + ' anunciadas">R$ ' + preco + marcaao + '</span> ';
-        tab_ranking = tab_ranking + '<span class="text-' + hk.cor + '" title="' + hk.vendaHoje + ' vendas hoje">(' + hk.usuario + ') *' + hk.vendaHoje + ' ups: ' + hk.updatecount + ' - ' + hk.atualizacao + '</span>';
+        tab_ranking = tab_ranking + '<span class="text-' + hk.cor + '" title="' + hk.vendaHoje + ' vendas hoje">(' + hk.usuario + ') *' + hk.vendaHoje + ' ups: ' + hk.updatecount + ' - ' + hk.atualizacao + ' &nbsp; ' + onfire + '</span>';
         tab_ranking = tab_ranking + '</div>';
+        contaToDisp++;
+        if (contaToDisp >= maxToDisplay)
+            break;
+        
     }
 
     if (cria) {
@@ -489,7 +561,7 @@ function LoadTudo() {
     loadTables(operadora, 100000);
     loadTables(operadora, 10000);
     //loadTables(operadora, 500);
-    printResult();
+    printResult(sortResult);
 }
 
 function loadFile() {
@@ -544,8 +616,13 @@ $("<div/>", {
 
 $("<div/>", {
     html: "<input type='checkbox' id='chkVendasHoje'> Ordenar por vendas hoje" +
-        "<div style='text-align:left;font-size: 9pt;'>Base: <input type='file' id='dFile'><button type='button' class='button green' id='btn_dlddata' onclick='DownloadDatanase()'><span class='button-text'>Download Data</span></button> <input type='hidden' id='txtData'><br> " +
-        "<button type='button' class='button green' id='btn_dlddata' onclick='loadFile()'><span class='button-text'>Load Data</span></button></div><div id='infohk' style='text-align:left;font-size: 9pt;'></div>",
+        "<div style='text-align:left;font-size: 9pt;'>" +
+        "Base: <input type='file' id='dFile'>" +
+        "<button type='button' class='button green' id='btn_dlddata' onclick='loadFile()'><span class='button-text'>Load Data</span></button>" +        
+        "<button type='button' class='button green' id='btn_dlddata' onclick='DownloadDatanase()'><span class='button-text'>Download Data</span></button>" +
+        " <input type='hidden' id='txtData'><br> " +        
+        "Ordeenar por: <span id='oInfo'></span> <br>  <input type='radio' onclick='printResult(1)' name='rOrdem' selected checked> Data <br>  <input type='radio' onclick='printResult(0)' name='rOrdem'> Atualizações<br> " +
+        "<div id='infohk' style='text-align:left;font-size: 9pt;'></div>" ,
     id: 'dvVendasHoje',
     click: function () {
         vendasHoje = $('#chkVendasHoje').is(":checked");
@@ -557,7 +634,7 @@ $("<div/>", {
 //tempo de atualização
 let delay = 70000; //5 minutos
 //use seu usuario
-nome = 'nonono';
+nome = 'seuuser';
 //id do usuário no telegram é um numero nãa o nome do usuário deve seguir o bot @milhasbot para que ele possa enviar mensagens
 idUserTelegram = '0';
 //salvar arquivo
@@ -568,7 +645,7 @@ var operadora = window.location.href.split('/')[4];
 loadTables(operadora, 100000);
 loadTables(operadora, 10000);
 //loadTables(operadora, 500);
-printResult();
+printResult(sortResult);
 
 let timerId = setTimeout(function request() {
     var operadora = window.location.href.split('/')[4];
