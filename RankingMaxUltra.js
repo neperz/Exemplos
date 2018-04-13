@@ -96,7 +96,7 @@ function addOrReplace(object) {
         if (atual.usuario == nome) {
             if (atual.range == object.range) {
                 if (atual.position != object.position) {
-                    alertaTelegram(object, atual.position, object.position);
+                    alertaTelegram(object.usuario, object.milhas, atual.position, object.position);
                 }
             }
         }
@@ -439,14 +439,17 @@ function loadTables(label, range) {
     });
 }
 
-function alertaTelegram(usr, de, para) {
-    if (usr.usuario == nome) {             
+function alertaTelegram(usr, milhas, de, para) {
+    //console.log(usr);
+    //console.log(nome);
+   // console.log(idUserTelegram);
+    if (usr == nome) {             
             
             if (idUserTelegram != '0') {
                 var tks = new Date().getTime();
-                var msg = 'R.: usuário ' + nome + ' mudou de ' + de + ' para ' + para + ' restam ' + usr.milhas;                
+                var msg = 'R.: usuário ' + nome + ' mudou de ' + de + ' para ' + para + ' restam ' + milhas;                
                 var urlTelegram = 'https://script.google.com/macros/s/AKfycbyOpmoxdr8hn2CvQ99uxV2kGZkviudHcoRhm5Tk-jdKkL-cx1dj/exec?max=1&idu=' + idUserTelegram + '&msg=' + msg + '&t=' + tks;
-                
+              //  console.log(urlTelegram);
                 $('<iframe />', { id: 'myFrame', src: urlTelegram }).appendTo('body');
                 // Get reference to the iframe element
                 var iframe = $('#myFrame').get(0);
@@ -634,7 +637,7 @@ $("<div/>", {
 //tempo de atualização
 let delay = 70000; //5 minutos
 //use seu usuario
-nome = 'seuuser';
+nome = 'nonono';
 //id do usuário no telegram é um numero nãa o nome do usuário deve seguir o bot @milhasbot para que ele possa enviar mensagens
 idUserTelegram = '0';
 //salvar arquivo
