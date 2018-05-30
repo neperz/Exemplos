@@ -1,4 +1,4 @@
-/*
+ï»¿/* 
 var tks = new Date().getTime();
 fetch('https://raw.githubusercontent.com/neperz/Exemplos/master/RankingMax.js?t=' + tks)
     .then(response => response.text())
@@ -30,7 +30,7 @@ function showInfo(usuario) {
 
     var msg = "";
     var html = "<b>" + atual.usuario + "  (" + diffHrs + " hours, " + diffMins + " minutes)</b><br>"
-    html += "<table border='1'><tr><th>Data</th><th>Posiçao</th><th>Oferta</th><th>Vendas Hoje</th><th>Total de Milhas</th></tr>";
+    html += "<table border='1'><tr><th>Data</th><th>PosiÃ§ao</th><th>Oferta</th><th>Vendas Hoje</th><th>Total de Milhas</th></tr>";
     if (atual.historico) {
         for (var i = 0; i < atual.historico.length; i++) {
             var datax = atual.historico[i];
@@ -391,7 +391,7 @@ function loadTables(label, range) {
                
 
                 tab_ranking = tab_ranking + '<div class="dbody">';
-                tab_ranking = tab_ranking + '<strong class="text-gray">' + posicao + 'º</strong> ';
+                tab_ranking = tab_ranking + '<strong class="text-gray">' + posicao + 'Âº</strong> ';
                 tab_ranking = tab_ranking + '<span class="text-' + corPreco + ' price" data-price="' + hk.price + '" title="' + milhas + ' anunciadas">R$ ' + preco + '</span> ';
                 tab_ranking = tab_ranking + '<span class="text-' + cor + '" title="' + vendaHoje + ' vendas hoje">(<a href="javascript:showInfo(\'' + usuario +'\')" >' + usuario + '</a>) *' + vendaHoje + '</span>';
                 tab_ranking = tab_ranking + '</div>';
@@ -447,7 +447,7 @@ function alertaTelegram(usr, milhas, de, para) {
             
             if (idUserTelegram != '0') {
                 var tks = new Date().getTime();
-                var msg = 'R.: usuário ' + nome + ' mudou de ' + de + ' para ' + para + ' restam ' + milhas;                
+                var msg = 'R.: usuÃ¡rio ' + nome + ' mudou de ' + de + ' para ' + para + ' restam ' + milhas;                
                 var urlTelegram = 'https://script.google.com/macros/s/AKfycbyOpmoxdr8hn2CvQ99uxV2kGZkviudHcoRhm5Tk-jdKkL-cx1dj/exec?max=1&idu=' + idUserTelegram + '&msg=' + msg + '&t=' + tks;
               //  console.log(urlTelegram);
                 $('<iframe />', { id: 'myFrame', src: urlTelegram }).appendTo('body');
@@ -470,7 +470,7 @@ function printResult(sort) {
     var tab_ranking = "";
     var tab_ranking_10000 = "";
     var tab_ranking_500 = "";
-    tab_ranking = tab_ranking + '<div class="title"> Últimas atualizações </div>';
+    tab_ranking = tab_ranking + '<div class="title"> Ãšltimas atualizaÃ§Ãµes </div>';
 
     //databasee
     /*
@@ -516,10 +516,10 @@ function printResult(sort) {
         var preco = roundToTwo(hk.price);//.replace(".", ",");
         var marcaao = "";
         if (hk.price >= milhasparametro) {
-            marcaao = " [PREÇO]";
+            marcaao = " [PREÃ‡O]";
         }
         tab_ranking = tab_ranking + '<div class="dbody">';
-        tab_ranking = tab_ranking + '<strong class="text-gray"><a title="' + hk.dtAtualizacao +'" href="javascript:showInfo(\'' + hk.usuario + '\')" >' + hk.posicao + 'º</a></strong> ';
+        tab_ranking = tab_ranking + '<strong class="text-gray"><a title="' + hk.dtAtualizacao +'" href="javascript:showInfo(\'' + hk.usuario + '\')" >' + hk.posicao + 'Âº</a></strong> ';
         tab_ranking = tab_ranking + '<span class="text-' + hk.corPreco + ' price" data-price="' + hk.price + '" title="' + hk.milhas + ' anunciadas">R$ ' + preco + marcaao + '</span> ';
         tab_ranking = tab_ranking + '<span class="text-' + hk.cor + '" title="' + hk.vendaHoje + ' vendas hoje">(' + hk.usuario + ') *' + hk.vendaHoje + ' ups: ' + hk.updatecount + ' - ' + hk.atualizacao + ' &nbsp; ' + onfire + '</span>';
         tab_ranking = tab_ranking + '</div>';
@@ -606,9 +606,9 @@ var lpos = "";
 var salvar = false;
 var vendasHoje = false;
 var idUserTelegram = '0';
-var adsLocal = '<p>Acesse o <a target="_new" href="https://t.me/joinchat/Cdtqg0TOxu5mRMUM4y57ew">grupo do nosso robô</a> no Telegram e fique por dentro das super ofertas que encontramos!</p>';
+var adsLocal = '<p>Acesse o <a target="_new" href="https://t.me/joinchat/Cdtqg0TOxu5mRMUM4y57ew">grupo do nosso robÃ´</a> no Telegram e fique por dentro das super ofertas que encontramos!</p>';
 $("<div/>", {
-    html: "<input type='checkbox' id='chkSalvar'> Download automático do report<br> Nome do usuário:<input id='txtUser'>" + adsLocal,
+    html: "<input type='checkbox' id='chkSalvar'> Download automÃ¡tico do report<br> Nome do usuÃ¡rio:<input id='txtUser'>" + adsLocal,
     id: 'dvCheckbox',
     click: function () {
         salvar = $('#chkSalvar').is(":checked");
@@ -624,7 +624,7 @@ $("<div/>", {
         "<button type='button' class='button green' id='btn_dlddata' onclick='loadFile()'><span class='button-text'>Load Data</span></button>" +        
         "<button type='button' class='button green' id='btn_dlddata' onclick='DownloadDatanase()'><span class='button-text'>Download Data</span></button>" +
         " <input type='hidden' id='txtData'><br> " +        
-        "Ordeenar por: <span id='oInfo'></span> <br>  <input type='radio' onclick='printResult(1)' name='rOrdem' selected checked> Data <br>  <input type='radio' onclick='printResult(0)' name='rOrdem'> Atualizações<br> " +
+        "Ordeenar por: <span id='oInfo'></span> <br>  <input type='radio' onclick='printResult(1)' name='rOrdem' selected checked> Data <br>  <input type='radio' onclick='printResult(0)' name='rOrdem'> AtualizaÃ§Ãµes<br> " +
         "<div id='infohk' style='text-align:left;font-size: 9pt;'></div>" ,
     id: 'dvVendasHoje',
     click: function () {
@@ -634,12 +634,12 @@ $("<div/>", {
     insertBefore: "#btn_register_miles"
 });
 //**********************configuracoes**********
-//tempo de atualização
+//tempo de atualizaÃ§Ã£o
 let delay = 70000; //5 minutos
 //use seu usuario
-nome = 'nonono';
-//id do usuário no telegram é um numero nãa o nome do usuário deve seguir o bot @milhasbot para que ele possa enviar mensagens
-idUserTelegram = '0';
+nome = 'neperz';
+//id do usuÃ¡rio no telegram Ã© um numero nÃ£a o nome do usuÃ¡rio deve seguir o bot @milhasbot para que ele possa enviar mensagens
+idUserTelegram = '165374595';
 //salvar arquivo
 salvar = false;
 //******************fim*********************
@@ -654,7 +654,7 @@ let timerId = setTimeout(function request() {
     var operadora = window.location.href.split('/')[4];
     loadTables(operadora, 100000);
     loadTables(operadora, 10000);
-    //loadTables(operadora, 500);
+    //loadTables(operadora, 5000);
     contaTime++;
 
     timerId = setTimeout(request, delay);
