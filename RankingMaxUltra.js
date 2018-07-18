@@ -218,8 +218,8 @@ function DownloadExcel(data, empresa, range) {
     var tab_ranking = "";
 
     var tab_ranking = "Username" + TAB + "Posicao" + TAB + "Milhas" + TAB + "Preco" + TAB + "VendasHoje" + TAB + "DataConsulta" + TAB + "Empresa" + TAB + "Limite" + LF;
-    for (var j = 0; j < data.list.length; j++) {
-        var hk = data.list[j];
+    for (var j = 0; j < data.ranking.length; j++) {
+        var hk = data.ranking[j];
         var vendaHoje = 0;//hk.salesToday;
         if (vendaHoje == null)
             vendaHoje = 0;
