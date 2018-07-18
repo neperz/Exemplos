@@ -21,6 +21,42 @@ function roundToTwo(num) {
 function cleanInfo() {
     $('#infohk').html('');
 }
+function cleanInfoGeral() {
+    $('#infoGeral').html('');
+}
+function showInfoGeral(geralInfo) {
+    var html = ""
+    html += "<table border='1'>";
+    if (geralInfo) {
+        
+        html += "<tr><td><b>Empresa:</b></td><td> " + geralInfo.airlineAcronym + "</td></tr>";    
+        html += "<tr><td><b>Programa:</b></td><td> " + geralInfo.airlineProgramFidelity + "</td></tr>";
+        html += "<tr><td><b>Máximo:</b></td><td> " + geralInfo.airlineProgramMaxValue + "</td></tr>";
+        html += "<tr><td><b>Mínimo:</b></td><td> " + geralInfo.airlineProgramMinValue + "</td></tr>";
+        html += "<tr><td><b>Preço:</b></td><td> " + geralInfo.price + "</td></tr>";
+
+        html += "<tr><td><b>Base:</b></td><td> " + geralInfo.baseMiles + "</td></tr>";
+         
+        html += "<tr><td><b>Médias:</b></td><td> &nbsp;</td></tr>";
+        
+        var v24 = geralInfo.averages["24HoursAgo"];
+        
+        var v3d = geralInfo.averages["3DaysAgo"];
+        
+        var v7d = geralInfo.averages["7DaysAgo"];
+        
+
+        html += "<tr><td><b> - 24hrs:</b></td><td> " + v24 + "</td></tr>";
+        html += "<tr><td><b> - 3 dias:</b></td><td> " + v3d + "</td></tr>";
+        html += "<tr><td><b> - 7 dias:</b></td><td> " + v7d + "</td></tr>";
+        
+          
+
+        html += "</table><br><input type='button' onclick='cleanInfoGeral()' value='limpar'><br><i>*Próxima atualização em: " + geralInfo.nextUpdate +"</i>";
+        // alert(msg);
+    }
+    $('#infoGeral').html(html);
+}
 function showInfo(usuario) {
     const index = databasee.findIndex(_item => _item.usuario === usuario);
     var atual = databasee[index];
@@ -30,7 +66,7 @@ function showInfo(usuario) {
 
     var msg = "";
     var html = "<b>" + atual.usuario + "  (" + diffHrs + " hours, " + diffMins + " minutes)</b><br>"
-    html += "<table border='1'><tr><th>Data</th><th>Posiçao</th><th>Oferta</th><th>Vendas Hoje</th><th>Total de Milhas</th></tr>";
+    html += "<table border='1'><tr><th>Data</th><th>Posição</th><th>Oferta</th><th>Vendas Hoje</th><th>Total de Milhas</th><th>Data da venda</th></tr>";
     if (atual.historico) {
         for (var i = 0; i < atual.historico.length; i++) {
             var datax = atual.historico[i];
@@ -39,7 +75,8 @@ function showInfo(usuario) {
                 html += "<td>  " + datax.posicao + "</td>";
                 html += "<td> " + roundToTwo(datax.price) + "</td>";
                 html += "<td>  " + datax.vendaHoje + "</td>";
-                html += "<td>  " + roundToTwo(datax.milhas) + "</td></tr>";
+                html += "<td>  " + roundToTwo(datax.milhas) + "</td>";
+                html += "<td>  " + (datax.lastselldate) + "</td></tr>";
             }
         }
         html += "</table><br><input type='button' onclick='cleanInfo()' value='limpar'>";
@@ -69,13 +106,13 @@ function addOrReplace(object) {
     const index = databasee.findIndex(_item => _item.usuario === object.usuario);
     if (index > -1) {
         var atual = databasee[index];
-        var va = parseInt(atual.vendaHoje);
-        var vo = parseInt(object.vendaHoje);
+        var va = (atual.lastselldate);
+        var vo = (object.lastselldate);
         if (va != vo) {
             object.dtAtualizacao = currentTime;
             object.updatecount = atual.updatecount + 1;
             object.atualizacao = displayTime();
-
+            object.salesToday + atual.salesToday + 1;
             object.index = index
             if (atual.historico) {
                 var objToAdd = object;
@@ -183,13 +220,13 @@ function DownloadExcel(data, empresa, range) {
     var tab_ranking = "Username" + TAB + "Posicao" + TAB + "Milhas" + TAB + "Preco" + TAB + "VendasHoje" + TAB + "DataConsulta" + TAB + "Empresa" + TAB + "Limite" + LF;
     for (var j = 0; j < data.list.length; j++) {
         var hk = data.list[j];
-        var vendaHoje = hk.salesToday;
+        var vendaHoje = 0;//hk.salesToday;
         if (vendaHoje == null)
             vendaHoje = 0;
         var usuario = hk.username;
         var posicao = hk.position;
         var preco = hk.price.replace(".", ",");
-        var milhas = hk.miles.replace(".", ",");
+        var milhas = 0;//hk.miles.replace(".", ",");
 
         tab_ranking = tab_ranking + usuario + TAB + posicao + TAB + milhas + TAB + preco + TAB + vendaHoje + TAB + dataField + TAB + empresa + TAB + range + LF;
     }
@@ -328,12 +365,12 @@ function loadTables(label, range) {
             //data = data.sort((a, b) => Number(a.salesToday) - Number(b.salesToday));
             // data.sort(GetSortOrder("salesToday")); 
             if (vendasHoje) {
-                data.list.sortById = function () {
+                data.ranking.sortById = function () {
                     this.sort(function (a, b) {
-                        return b.salesToday - a.salesToday;
+                        return b.last_sell_date - a.last_sell_date;
                     });
                 };
-                data.list.sortById();
+                data.ranking.sortById();
             }
 
             $("#price_prefix").toggleClass("fb_dialog fb_dialog_mobile loading", false);
@@ -347,14 +384,14 @@ function loadTables(label, range) {
             tab_ranking = tab_ranking + '<div class="title"> Ofertas ' + (range / 1000) + 'k *clique para atualizar<br>Atualizado em ' + lastUpdate + '</div>';
             var atual = 0;
             var maior = 0;
-
+            showInfoGeral(data);
             for (var j = 0; j < 2500; j++) {
                 var cor = 'green';
                 var corPreco = 'green';
-                var hk = data.list[j];
+                var hk = data.ranking[j];
                 if (!hk)
                     continue;
-                var vendaHoje = hk.salesToday;
+                var vendaHoje = 0;//hk.salesToday;
                 if (vendaHoje == null)
                     vendaHoje = 0;
                 var usuario = hk.username;
@@ -364,7 +401,7 @@ function loadTables(label, range) {
                     corPreco = 'red';
                 var posicao = hk.position;
                 var preco = hk.price.replace(".", ",");
-                var milhas = hk.miles.replace(".", ",");
+                var milhas = 0;//hk.miles.replace(".", ",");
 
                 if (usuario == nome) {
                     cor = 'red';
@@ -374,10 +411,11 @@ function loadTables(label, range) {
                 var currentTime = new Date();
 
                 var xdata = {
+                    lastselldate : hk.last_sell_date ,
                     usuario: usuario,
                     posicao: posicao,
                     price: hk.price,
-                    milhas: hk.miles,
+                    milhas: 0, //hk.miles,
                     dtAtualizacao : currentTime,
                     vendaHoje: vendaHoje,
                     corPreco: corPreco,
@@ -625,7 +663,7 @@ $("<div/>", {
         "<button type='button' class='button green' id='btn_dlddata' onclick='DownloadDatanase()'><span class='button-text'>Download Data</span></button>" +
         " <input type='hidden' id='txtData'><br> " +        
         "Ordeenar por: <span id='oInfo'></span> <br>  <input type='radio' onclick='printResult(1)' name='rOrdem' selected checked> Data <br>  <input type='radio' onclick='printResult(0)' name='rOrdem'> Atualizações<br> " +
-        "<div id='infohk' style='text-align:left;font-size: 9pt;'></div>" ,
+        "<div id='infoGeral' style='text-align:left;font-size: 9pt;'></div><div id='infohk' style='text-align:left;font-size: 9pt;'></div>" ,
     id: 'dvVendasHoje',
     click: function () {
         vendasHoje = $('#chkVendasHoje').is(":checked");
@@ -637,9 +675,9 @@ $("<div/>", {
 //tempo de atualização
 let delay = 70000; //5 minutos
 //use seu usuario
-nome = 'neperz';
+nome = '-';
 //id do usuário no telegram é um numero nãa o nome do usuário deve seguir o bot @milhasbot para que ele possa enviar mensagens
-idUserTelegram = '165374595';
+idUserTelegram = '-';
 //salvar arquivo
 salvar = false;
 //******************fim*********************
