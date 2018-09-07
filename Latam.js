@@ -49,26 +49,45 @@ function RenderTela() {
                     options += '<option value="' + p.iataCode + '">' + p.label + '</option>';
                 }
             }
-            var sOrigem = 'Origem: <select id="cbnOrigem">' + options + '</select>';
-            var sDestino = 'Destino: <select id="cbnDestino">' + options + '</select>';
-            var sData = 'Data de Ida: <input id="txtDtIda" value="2018-09-09"> (ano-mes-dia)';
+            var sOrigem =  '<tr><td> Origem: </td> <td><select id="cbnOrigem">' + options + '</select></td></tr>';
+            var sDestino = '<tr><td> Destino: </td> <td><select id="cbnDestino">' + options + '</select></td></tr>';
+            var sData = '<tr><td> Data de Ida: </td> <td><input id="txtDtIda" value="2018-09-09"> (ano-mes-dia)</td></tr>';
             var sBtnConsulta = '<input type="button" value="Consultar Melhor Preço" onclick="doConsulta()">';
             var sBtnConsultaNormal = '<input type="button" value="Consultar Normal" onclick="doConsultaNormal()">';
             var sLabelInfo = 'Pesquisa Normal <spam id="rOriginal"></spam>';
             var sLabelInfoOriginal = 'Pesquisa Escalas: <spam id="rConsulta"></spam>';
-            msg = '<p>' + sOrigem +
-                '<br>' + sDestino +
-                '<br>' + sData +
-                '<br>' + sBtnConsultaNormal+  sBtnConsulta +  
+            msg = '<p><table border="0">' + sOrigem +
+                 sDestino +
+                 sData +
+                '</table>' +
+                '<strong id="rStatus" class="week-day-string">Consulta Interna</strong>' +
+                '<br>' + sBtnConsultaNormal + sBtnConsulta +  
                 '<br>' + sLabelInfoOriginal +
                 '<br>' + sLabelInfo + 
-                '<br> </p>' +
-                '<i id="rStatus">Consulta Interna</i>';
-            $('.flight-selection-instruction').html(msg);
+                '<br> ' +
+                '</p>';
+
+            $("<div/>", {
+                html: msg,
+                id: 'dvPrincipal',
+                "class": "ranking-table",      // ('class' is still better in quotes)
+                css: {
+                    "width": "90%" //,
+                    //"position": "relative",
+                   // "float": "left",
+                   // "margin-top": "0px"
+                },
+                //click: function () {
+                //    printResult();
+                //},
+                insertBefore: ".flight-selection-instruction"
+            });
+
+           // $('.flight-selection-instruction').html(msg);
             $('.itinerary-route').html('Consulta Personalizada!');
             $('.trip-summary').html('-');
-            $('.flight-list').html('-');
-            $('.flexible-dates-container').html('-');
+            //$('.flight-list').html('-');
+            //$('.flexible-dates-container').html('-');
          
             
         },
@@ -82,12 +101,18 @@ function RenderTela() {
     });
 
 }
+refreshIntervalId  = 0;
 function doConsultaNormal() {
     resetGlobals();
     var origem = $('#cbnOrigem').val();
     var destino = $('#cbnDestino').val();
     var data = $('#txtDtIda').val();
-    $('#rStatus').html("..consultando");
+    text = "Aguarde Consultando..";
+    refreshIntervalId = setInterval(function () {
+        $("#rStatus").html(text + Array((++i % 4) + 1).join("."));
+       // if (i === 10) text = "Concluído";
+    }, 500);
+   // $('#rStatus').html("..consultando");
     GetNormalPrice(origem, destino, data);
 }
 function doConsulta() {
@@ -95,7 +120,12 @@ function doConsulta() {
     var origem = $('#cbnOrigem').val();
     var destino = $('#cbnDestino').val();
     var data = $('#txtDtIda').val();
-    $('#rStatus').html('..consultando');
+    text = "Aguarde Consultando..";
+    refreshIntervalId = setInterval(function () {
+        $("#rStatus").html(text + Array((++i % 4) + 1).join("."));
+        // if (i === 10) text = "Concluído";
+    }, 500);
+    //$('#rStatus').html('..consultando');
     GetNormalPrice(origem, destino, data);
     FindBestPrice(origem, destino, data);
 }
@@ -116,19 +146,55 @@ function mostraMenor() {
     var perc = (menorPreco.valor / normalPreco.valor) * 100;
     var tperc = 100 - perc;
 
-    var msg = 'Encontrada em ' + menorPreco.destino + ' (' + menorPreco.melhor.flightCode + ') por: ' + formataDinheiro(menorPreco.valor) + ' (' + tperc.toFixed(2) + '% OFF) <a target="_new" href="' + menorPreco.link + '">Link</a>';
+    var msg = menorPreco.destino + ' (' + menorPreco.melhor.flightCode + ') por: <b>' + formataDinheiro(menorPreco.valor) + '</b> (' + tperc.toFixed(2) + '% OFF) ' 
+        
     if (menorPreco.valor === 999999.9) {
         msg = 'Nenuma escala foi encontrada para esta consulta';
     }
+    msg += printTable(menorPreco.achados);
+    msg += '<a class="week-day-selector" target="_new" href="' + menorPreco.link + '">Link</a>';
+    
     $('#rConsulta').html(msg);
 }
+function printTable(achados) {
+    var tabela = '';
+    if (achados) {
+        var linhas = '';
+        nAchados = achados.length;
+        achados.sortByPreco = function () {
+            this.sort(function (a, b) {
+                return a.cabins[0].displayPrice - b.cabins[0].displayPrice;
+            });
+        };
+        achados.sortByPreco();
+        if (nAchados >= 3) {
+            nAchados = 3;
+        }
+        for (var j = 0; j < nAchados; j++) {
+            var a = achados[j];
+            linhas += '<tr>' +
+                '<td style="padding: 2px;">' + j + ' - ' + a.arrival.airportCode + '</td>' +
+                '<td style="padding: 2px;"><b>' + formataDinheiro(a.cabins[0].displayPrice) + '</b></td>' +
+                '<td style="padding: 2px;">' + a.flightCode + '</td>' +
+                '<td style="padding: 2px;">' + a.arrival.time.stamp + '</td>' +
+                '</tr>';
+        }
+
+        tabela = '<br>Melhores Resultados:<table border="1" cellpadding ="1"><tr><td>Destino</td><td>Preço</td><td>Voo</td><td>Chegada</td></tr>' + linhas + '</table>';
+    }
+    return tabela;
+}
 function mostraNormal() {
-    var msg = 'Preço Normal ' + normalPreco.destino + ' (' + normalPreco.melhor.flightCode + ') ' + formataDinheiro(normalPreco.valor) + '  <a target="_new" href="' + normalPreco.link + '">Link</a>';   
+    var msg = normalPreco.destino + ' (' + normalPreco.melhor.flightCode + ') <b>' + formataDinheiro(normalPreco.valor) + '</b> '
+        
+    msg += printTable(normalPreco.achados);
+    msg += '<a class="week-day-selector" target="_new" href="' + normalPreco.link + '">Link</a>';   
     $('#rOriginal').html(msg);
 }
 $(document).ajaxStop(function () {
     mostraNormal();
     mostraMenor();    
+    clearInterval(refreshIntervalId);
     $('#rStatus').html('Concluído');
 });
 function GetNormalPrice(origem, destino, data) {
@@ -178,10 +244,6 @@ function GetNormalPrice(origem, destino, data) {
         },
         error: function (request, error) {
             console.log(error);
-            // console.log('Acesso negado a esse report, talvez vc nao tenha ofertas nesta categoria');
-            // $('#' + nomeDv).html('Acesso negado a esse report, talvez vc nao tenha ofertas nesta categoria');
-
-            //alert(error + "Request: "+JSON.stringify(request));
         }
     });
 }
@@ -218,11 +280,11 @@ function GetPrice(origem, destino, destinoProcurado, data) {
                 //console.log(segs);
                 for (var j = 0; j < segs.length; j++) {
                     var seg = segs[j];
-                    console.log(seg.arrival.airportCode + '::' + destinoProcurado);
+                    //console.log(seg.arrival.airportCode + '::' + destinoProcurado);
                     if (seg.arrival.airportCode === destinoProcurado) {
-                        var preco = parseFloat(voo.cabins[0].displayPrice);
-                        console.log(menorPreco.valor + '-->' + preco);
+                        var preco = parseFloat(voo.cabins[0].displayPrice);                        
                         if (menorPreco.valor > preco) {
+                            console.log(menorPreco.valor + '-->' + preco);
                             menorPreco.valor = preco;
                             menorPreco.destino = destino;
                             menorPreco.melhor = voo;
