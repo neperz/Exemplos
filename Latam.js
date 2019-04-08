@@ -35,7 +35,7 @@ var places = [];
 g_csLoaded = true;
 
 function RenderTela() {
-    var urlPlace = 'https://www.latam.com/ws/api/booking-box/v2/originsBB?airline=tam&portal=pessoas&application=compra&country=BR&language=pt';
+    var urlPlace = 'https://bff.latam.com/ws/api/bookingbox-services/v1/origins?airline=tam&portal=pessoas&application=compra&applicationName=shopping&country=BR&language=pt&step=2';
     $.ajax({
         url: urlPlace,
         type: 'GET',
@@ -51,14 +51,15 @@ function RenderTela() {
             }
             var sOrigem =  '<tr><td> Origem: </td> <td><select id="cbnOrigem">' + options + '</select></td></tr>';
             var sDestino = '<tr><td> Destino: </td> <td><select id="cbnDestino">' + options + '</select></td></tr>';
+            var sAdultos = '<tr><td> Adultos: </td> <td><input id="txtAdultos" value="1"></td></tr>';
             var sData = '<tr><td> Data de Ida: </td> <td><input id="txtDtIda" value="2018-09-09"> (ano-mes-dia)</td></tr>';
-            var sBtnConsulta = '<input type="button" value="Consultar Melhor Preço" onclick="doConsulta()">';
+            var sBtnConsulta = '<input type="button" value="Consultar Melhor Preï¿½o" onclick="doConsulta()">';
             var sBtnConsultaNormal = '<input type="button" value="Consultar Normal" onclick="doConsultaNormal()">';
             var sLabelInfo = 'Pesquisa Normal <spam id="rOriginal"></spam>';
             var sLabelInfoOriginal = 'Pesquisa Escalas: <spam id="rConsulta"></spam>';
             msg = '<p><table border="0">' + sOrigem +
                  sDestino +
-                 sData +
+                sData + sAdultos + 
                 '</table>' +
                 '<strong id="rStatus" class="week-day-string">Consulta Interna</strong>' +
                 '<br>' + sBtnConsultaNormal + sBtnConsulta +  
@@ -87,8 +88,7 @@ function RenderTela() {
             $('.itinerary-route').html('Consulta Personalizada!');
             $('.trip-summary').html('-');
             //$('.flight-list').html('-');
-            //$('.flexible-dates-container').html('-');
-         
+            //$('.flexible-dates-container').html('-');            
             
         },
         error: function (request, error) {
@@ -106,34 +106,36 @@ function doConsultaNormal() {
     resetGlobals();
     var origem = $('#cbnOrigem').val();
     var destino = $('#cbnDestino').val();
+    var adultos = $('#txtAdultos').val();
     var data = $('#txtDtIda').val();
     text = "Aguarde Consultando..";
     refreshIntervalId = setInterval(function () {
         $("#rStatus").html(text + Array((++i % 4) + 1).join("."));
-       // if (i === 10) text = "Concluído";
+       // if (i === 10) text = "Concluï¿½do";
     }, 500);
    // $('#rStatus').html("..consultando");
-    GetNormalPrice(origem, destino, data);
+    GetNormalPrice(origem, destino, data, adultos);
 }
 function doConsulta() {
     resetGlobals();
     var origem = $('#cbnOrigem').val();
     var destino = $('#cbnDestino').val();
     var data = $('#txtDtIda').val();
+    var adultos = $('#txtAdultos').val();
     text = "Aguarde Consultando..";
     refreshIntervalId = setInterval(function () {
         $("#rStatus").html(text + Array((++i % 4) + 1).join("."));
-        // if (i === 10) text = "Concluído";
+        // if (i === 10) text = "Concluï¿½do";
     }, 500);
     //$('#rStatus').html('..consultando');
-    GetNormalPrice(origem, destino, data);
-    FindBestPrice(origem, destino, data);
+    GetNormalPrice(origem, destino, data, adultos);
+    FindBestPrice(origem, destino, data, adultos);
 }
-function FindBestPrice(origem, destino, datapartida) {
+function FindBestPrice(origem, destino, datapartida, adultos) {
     for (var i = 0; i < places.length; i++) {
         p = places[i];
         if (p.iataCode !== destino) {
-            GetPrice(origem, p.iataCode, destino, datapartida);
+            GetPrice(origem, p.iataCode, destino, datapartida, adultos);
         }
     }
 }
@@ -180,7 +182,7 @@ function printTable(achados) {
                 '</tr>';
         }
 
-        tabela = '<br>Melhores Resultados:<table border="1" cellpadding ="1"><tr><td>Destino</td><td>Preço</td><td>Voo</td><td>Chegada</td></tr>' + linhas + '</table>';
+        tabela = '<br>Melhores Resultados:<table border="1" cellpadding ="1"><tr><td>Destino</td><td>Preï¿½o</td><td>Voo</td><td>Chegada</td></tr>' + linhas + '</table>';
     }
     return tabela;
 }
@@ -195,9 +197,9 @@ $(document).ajaxStop(function () {
     mostraNormal();
     mostraMenor();    
     clearInterval(refreshIntervalId);
-    $('#rStatus').html('Concluído');
+    $('#rStatus').html('Concluï¿½do');
 });
-function GetNormalPrice(origem, destino, data) {
+function GetNormalPrice(origem, destino, data, adultos) {
   
     var consulta =
     {
@@ -207,15 +209,15 @@ function GetNormalPrice(origem, destino, data) {
         origin: origem, //'MAO',
         destination: destino, //'BEL',
         departure: data, //'2018-09-09',
-        adult: 1,
+        adult: adultos,
         cabin: 'Y',
         fecha1_dia: data.slice(-2),
         fecha1_anomes: data.substring(0, 7)
     };
-
+        
     var urldef = 'https://bff.latam.com/ws/proxy/booking-webapp-bff/v1/public/revenue/recommendations/oneway?' +
         'country=' + consulta.country + '&language=' + consulta.language + '&home=' + consulta.home + '&' +
-        'origin=' + consulta.origin + '&destination=' + consulta.destination + '&departure=' + consulta.departure + '&adult=' + consulta.adult + '&cabin=' + consulta.cabin;
+        'origin=' + consulta.origin + '&destination=' + consulta.destination + '&departure=' + consulta.departure + '&adult=' + consulta.adult + '&cabin=' + consulta.cabin +'&promoCode='; 
     $.ajax({
         url: urldef,
         type: 'GET',
@@ -235,7 +237,11 @@ function GetNormalPrice(origem, destino, data) {
                         '&ida_vuelta=ida' +
                         '&from_city1=' + consulta.origin +
                         '&to_city1=' + destino +
-                        '&flex=1&cabina=Y&nadults=1&nchildren=0&ninfants=0';
+                        '&flex=1' +
+                        '&cabina=Y' +
+                        '&nadults=' + consulta.adult +
+                        '&nchildren=0' +
+                        '&ninfants=0';
                     normalPreco.link = link;
                     mostraNormal();
                 }
@@ -248,7 +254,7 @@ function GetNormalPrice(origem, destino, data) {
     });
 }
 
-function GetPrice(origem, destino, destinoProcurado, data) {
+function GetPrice(origem, destino, destinoProcurado, data, adultos) {
 
     if (destino === destinoProcurado)
         return;
@@ -260,15 +266,21 @@ function GetPrice(origem, destino, destinoProcurado, data) {
         origin: origem, //'MAO',
         destination: destino, //'BEL',
         departure: data, //'2018-09-09',
-        adult: 1,
+        adult: adultos,
         cabin: 'Y',
         fecha1_dia: data.slice(-2),
         fecha1_anomes: data.substring(0, 7)
     };
 
     var urldef = 'https://bff.latam.com/ws/proxy/booking-webapp-bff/v1/public/revenue/recommendations/oneway?' +
-        'country=' + consulta.country + '&language=' + consulta.language + '&home=' + consulta.home + '&' +
-        'origin=' + consulta.origin + '&destination=' + consulta.destination + '&departure=' + consulta.departure + '&adult=' + consulta.adult + '&cabin=' + consulta.cabin;
+        'country=' + consulta.country +
+        '&language=' + consulta.language +
+        '&home=' + consulta.home + '&' +
+        'origin=' + consulta.origin +
+        '&destination=' + consulta.destination +
+        '&departure=' + consulta.departure +
+        '&adult=' + consulta.adult +
+        '&cabin=' + consulta.cabin;
     $.ajax({
         url: urldef,
         type: 'GET',
@@ -295,7 +307,11 @@ function GetPrice(origem, destino, destinoProcurado, data) {
                                 '&ida_vuelta=ida' +
                                 '&from_city1=' + consulta.origin +
                                 '&to_city1=' + destino +
-                                '&flex=1&cabina=Y&nadults=1&nchildren=0&ninfants=0';
+                                '&flex=1' +
+                                '&cabina=Y' +
+                                '&nadults=' + consulta.adult  +
+                                '&nchildren=0' +
+                                '&ninfants=0';
                             menorPreco.link = link;
                             mostraMenor();
                         }
