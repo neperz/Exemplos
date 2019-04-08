@@ -214,7 +214,7 @@ function GetNormalPrice(origem, destino, data, adultos) {
         fecha1_dia: data.slice(-2),
         fecha1_anomes: data.substring(0, 7)
     };
-        
+    //url de consulta GET    
     var urldef = 'https://bff.latam.com/ws/proxy/booking-webapp-bff/v1/public/revenue/recommendations/oneway?' +
         'country=' + consulta.country + '&language=' + consulta.language + '&home=' + consulta.home + '&' +
         'origin=' + consulta.origin + '&destination=' + consulta.destination + '&departure=' + consulta.departure + '&adult=' + consulta.adult + '&cabin=' + consulta.cabin +'&promoCode='; 
