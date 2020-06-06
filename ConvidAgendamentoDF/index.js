@@ -103,6 +103,7 @@ function startTimeLoop()
                 if (data.data.Result==true)
                 {
                     playSound();
+                    $('#labelstart').append('<h1>LOCALIZADO EM ' + d.toLocaleTimeString() +'</H1>');
                     $('#dvResult').append('<span style="background-color: #f7efa6;color: #6a6641;">'+ d.toLocaleTimeString() +' :: Disponível: ' + data.data.Result +'</span><br>');
                 }
                 else
