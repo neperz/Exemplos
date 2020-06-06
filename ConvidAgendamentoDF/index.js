@@ -20,7 +20,7 @@ var links='';
 links = links+ '<p class="text-big-block no-margin">';
 links = links+ 'Consultas:';
 links = links+ '</p>';
-links = links+ '<button type="button" class="button green small" onclick="StartBusca()">Procurar</button>' +
+links = links+ '<button type="button" class="button green small" onclick="startTimeLoop()">Procurar</button>' +
 '<button type="button" class="button green small" onclick="StopBusca()">Parar</button><p id="labelstart">...</p>'+
 '<div style="width: 250px; height: 150px; overflow-y: scroll;" id="painelResult"><spam id="dvResult"/></div>';
 
@@ -47,7 +47,7 @@ var xtoken ="";
 var cdata = getCook('nr2MTeste_Core');       
 xtoken = cdata.split(';')[0].replace('crf=','');
 //crf=9J1Nd9wL2R8HI5Oq6BvO3FfarYs=;uid=609887;unm=felipe@wikicode.com.b
-
+var lastFind="";
 function StartBusca() {    
     //alert(xtoken);    
     var user ={
@@ -63,11 +63,9 @@ function StartBusca() {
         headers: {  "x-csrftoken": xtoken },
         contentType: 'application/json; charset=UTF-8',
         success: function (data) {
-            
-            $('#labelstart').append("<p>Pode agendar? " + data.data.EnableAgendar +" </p>");
-            HasVaga();
-            startTimeLoop();
-           
+            var d = new Date();
+            $('#labelstart').html("<p>Pode agendar? " + data.data.EnableAgendar +" ("+ d.toLocaleTimeString() +") ["+ lastFind +"] </p>");
+            HasVaga();                      
         },
         error: function (request, status, error) {
             alert(request.responseText);
@@ -76,9 +74,11 @@ function StartBusca() {
     });
 }
 var tokenTimer;
+
 function startTimeLoop()
 {
-    tokenTimer = setInterval( HasVaga, 9000);
+    StartBusca();
+    tokenTimer = setInterval( StartBusca, 9000);
 }
 
  function HasVaga() {        
@@ -97,13 +97,14 @@ function startTimeLoop()
             headers: {  "x-csrftoken": xtoken },
             contentType: 'application/json; charset=UTF-8',
             success: function (data) {
-                console.log(data);                
+                //console.log(data);                
                 var d = new Date();
                 
                 if (data.data.Result==true)
                 {
+                    lastFind='<h1>LOCALIZADO EM ' + d.toLocaleTimeString() +'</H1>';
                     playSound();
-                    $('#labelstart').append('<h1>LOCALIZADO EM ' + d.toLocaleTimeString() +'</H1>');
+                    //$('#labelstart').append('<h1>LOCALIZADO EM ' + d.toLocaleTimeString() +'</H1>');
                     $('#dvResult').append('<span style="background-color: #f7efa6;color: #6a6641;">'+ d.toLocaleTimeString() +' :: Disponível: ' + data.data.Result +'</span><br>');
                 }
                 else
