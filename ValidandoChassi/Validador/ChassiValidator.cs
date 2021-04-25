@@ -4,17 +4,38 @@ namespace Validador
     public class ChassiValidator
     {
         private string _chassi { get; set; }
+        public string IdentificacaoInternacional { get; set; }
+
+        public string TipoVeiculo { get; set; }
+        public string Modelo { get; set; }
+        public string Versao { get; set; }
+        public string Carroceiria { get; set; }
+        public string Motorizacao { get; set; }
+
+        public string NumeroConstante { get; set; }
+
+        public string AnoFabricacaoEFabrica { get; set; }
+
+        public string NumeroDeSerie { get; set; }
+
         public ChassiValidator(string chassi)
         {
             _chassi=chassi;
+            if (_chassi.Length!=17)
+                throw new System.Exception("Numero do chassi deve ter 17 caracteres");
+            IdentificacaoInternacional = _chassi.Substring(0,3);
+            TipoVeiculo=_chassi.Substring(3,6);
+            AnoFabricacaoEFabrica= _chassi.Substring(9,2);
+            NumeroDeSerie= _chassi.Substring(11,6);
+
+            
         }
         public bool Validar()
         {
             //KMHJU819BCU368279
             int soma, numero, resto;
             string digito;
-            if (_chassi.Length!=17)
-                throw new System.Exception("Numero do chassi deve ter 17 caracteres");
+   
             soma=0;
             for (int i = 0; i < _chassi.Length-1; i++)
             {
@@ -40,7 +61,7 @@ namespace Validador
                     case 7:case 17:  soma +=   numero * 2;break;
                     case 8   :  soma +=   numero * 10;break;
                     case 9   :  soma +=   numero * 0;break;
-                    case 10  :  soma +=   numero * 9;      break;              
+                    case 10  :  soma +=   numero * 9; break;              
                     default:
                         break;
                 }
