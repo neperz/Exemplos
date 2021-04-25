@@ -34,10 +34,11 @@ namespace Validador
         {
             //KMHJU819BCU368279
             int soma, numero, resto;
+            string chasiNumeric="";
             string digito;
    
             soma=0;
-            for (int i = 0; i < _chassi.Length-1; i++)
+            for (int i = 0; i < _chassi.Length; i++)
             {
                 var cPart = _chassi[i];
                 if (char.IsNumber(cPart))          
@@ -50,14 +51,15 @@ namespace Validador
                     numero= GetValByLetter(cPart);
                     Console.WriteLine($"[{i}]: {cPart} NÃO é número");
                 }
-                switch (numero)
+                chasiNumeric = chasiNumeric  + numero.ToString();
+                switch (i+1)
                 {
                     case 1: case 11: soma += numero *8;break;
                     case 2:case 12:  soma +=   numero * 7;break;
                     case 3 :case 13:  soma +=   numero * 6;break;
-                    case  4:case  14:  soma +=  numero * 5;break;
+                    case 4:case  14:  soma +=  numero * 5;break;
                     case 5: case 15:  soma +=   numero * 4;break;
-                    case  6: case 16:  soma +=   numero * 3;break;
+                    case 6: case 16:  soma +=   numero * 3;break;
                     case 7:case 17:  soma +=   numero * 2;break;
                     case 8   :  soma +=   numero * 10;break;
                     case 9   :  soma +=   numero * 0;break;
@@ -65,16 +67,18 @@ namespace Validador
                     default:
                         break;
                 }
+                Console.WriteLine($"Chassi numerico: {chasiNumeric}");
                 Console.WriteLine($"Soma: {soma}");
             
             }
-            resto = (soma *10 ) % 11;
+            resto = (soma ) % 11;
             Console.WriteLine($"Resto: {resto}");
             if (resto==10)
                 digito="X";
             else            
                 digito = resto.ToString();
-            Console.WriteLine($"Digito: {digito}");    
+            Console.WriteLine($"Digito Calculado: {digito}");    
+            Console.WriteLine($"Digito Real: {_chassi[8].ToString()}");    
             return digito== _chassi[8].ToString();
         }
         private int GetValByLetter(char letra)
@@ -82,31 +86,21 @@ namespace Validador
             int letraInt=0;
             switch (letra)
             {
-                case 'A': letraInt=1;break;
-                case 'B': letraInt=2;break;
-                case 'C': letraInt=3;break;
-                case 'D': letraInt=4;break;
-                case 'E': letraInt=5;break;
-                case 'F': letraInt=6;break;
-                case 'G': letraInt=7;break;
-                case 'H': letraInt=8;break;
-                case 'I': letraInt=9;break;
-                case 'J': letraInt=1;break;
-                case 'K': letraInt=2;break;
-                case 'L': letraInt=3;break;
-                case 'M': letraInt=4;break;
-                case 'N': letraInt=5;break;
-                case 'O': letraInt=6;break;
-                case 'P': letraInt=7;break;
-                case 'Q': letraInt=8;break;
-                case 'R': letraInt=9;break;
-                case 'S': letraInt=2;break;
-                case 'T': letraInt=3;break;
-                case 'U': letraInt=4;break;
-                case 'V': letraInt=5;break;
-                case 'W': letraInt=6;break;
-                case 'X': letraInt=7;break;
-                case 'Y': letraInt=8;break;                 
+                case 'A':case 'J': letraInt=1;break;
+                case 'B':case 'K':case 'S': letraInt=2;break;
+                case 'C': case 'L':  case 'T': letraInt=3;break;
+                case 'D': case 'M': case 'U': letraInt=4;break;
+                case 'E': case 'N':case 'V':letraInt=5;break;
+                case 'F': case 'W': letraInt=6;break;
+                case 'G': case 'P':case 'X':  letraInt=7;break;
+                case 'H': case 'Y': letraInt=8;break;
+                case 'R':case 'Z':  letraInt=9;break;  
+
+                case 'I': letraInt=9;throw new Exception("Chassi falso");   break;               
+                case 'O': letraInt=6;throw new Exception("Chassi falso"); break;                 
+                case 'Q': letraInt=8;throw new Exception("Chassi falso");  break; 
+                                 
+                                 
                 default:
                 letraInt=9;break;   
             }
