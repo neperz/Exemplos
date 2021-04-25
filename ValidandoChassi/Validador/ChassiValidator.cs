@@ -5,7 +5,8 @@ namespace Validador
     {
         private string _chassi { get; set; }
         public string IdentificacaoInternacional { get; set; }
-
+        public string RegiaoGeografica { get; }
+        public string PaisDeOrigem { get; }
         public string TipoVeiculo { get; set; }
         public string Modelo { get; set; }
         public string Versao { get; set; }
@@ -24,13 +25,43 @@ namespace Validador
             if (_chassi.Length!=17)
                 throw new System.Exception("Numero do chassi deve ter 17 caracteres");
             IdentificacaoInternacional = _chassi.Substring(0,3);
+            RegiaoGeografica= GetRegiaoGeografica(IdentificacaoInternacional.Substring(0,1));
             TipoVeiculo=_chassi.Substring(3,6);
             AnoFabricacaoEFabrica= _chassi.Substring(9,2);
             NumeroDeSerie= _chassi.Substring(11,6);
 
             
         }
-        public bool Validar()
+
+        private string GetRegiaoGeografica(string idRegiao)
+        {
+            switch (idRegiao.ToUpper())
+            {
+                case "1": return "EUA";
+                case "3": return "México";
+                case "8": return "Améria do Sul/Argentina";
+                case "9": return "Améria do Sul/Brasil";
+                case "A": return "AFRICA DO SUL/COSTA DOMARFIM";
+                case "B": return "ANGOLA /AFRICA/TANZANIA";
+                case "J": return "Japão";
+                case "V": return "França";
+                case "W": return "Alemanha";
+                case "Z": return "Itália";
+                default: return "";
+            }
+        }
+
+    private string GetPaisOrigem(string idPais)
+        {
+            switch (idPais.ToUpper())
+            {
+                case "A":case "E": return "Brasil";
+               //TODO PEGAR O RESTO DOS PAISES
+                default: return "";
+            }
+        }        
+
+        public bool ValidarDigito()
         {
             //KMHJU819BCU368279
             int soma, numero, resto;
@@ -44,12 +75,15 @@ namespace Validador
                 if (char.IsNumber(cPart))          
                 {      
                     numero= int.Parse(cPart.ToString());
-                    Console.WriteLine($"[{i}]: {numero.ToString()} é número");
                 }
                 else
                 {
                     numero= GetValByLetter(cPart);
-                    Console.WriteLine($"[{i}]: {cPart} NÃO é número");
+                    if (numero<=0)
+                    {
+                        Console.WriteLine("Chassi falso as letras “I”, “O” e “Q” são proibidas");
+                        return false;
+                    }
                 }
                 chasiNumeric = chasiNumeric  + numero.ToString();
                 switch (i+1)
@@ -67,10 +101,10 @@ namespace Validador
                     default:
                         break;
                 }
-                Console.WriteLine($"Chassi numerico: {chasiNumeric}");
-                Console.WriteLine($"Soma: {soma}");
-            
+                
+                Console.WriteLine($"Soma parcial: {soma}");            
             }
+            Console.WriteLine($"Chassi numerico: {chasiNumeric}");
             resto = (soma ) % 11;
             Console.WriteLine($"Resto: {resto}");
             if (resto==10)
@@ -96,13 +130,13 @@ namespace Validador
                 case 'H': case 'Y': letraInt=8;break;
                 case 'R':case 'Z':  letraInt=9;break;  
 
-                case 'I': letraInt=9;throw new Exception("Chassi falso");   break;               
-                case 'O': letraInt=6;throw new Exception("Chassi falso"); break;                 
-                case 'Q': letraInt=8;throw new Exception("Chassi falso");  break; 
+                case 'I': letraInt=9;letraInt=-1;break;         
+                case 'O': letraInt=6;letraInt=-1;break;                 
+                case 'Q': letraInt=8;letraInt=-1;break;  
                                  
                                  
                 default:
-                letraInt=9;break;   
+                letraInt=-1;break; 
             }
             return letraInt;
         }

@@ -13,7 +13,7 @@ namespace Validador
                 chassiToValidate = args[0];
             Console.WriteLine($"validando chassi {chassiToValidate}");
             ChassiValidator cv = new ChassiValidator(chassiToValidate);
-            var result = cv.Validar();
+            var result = cv.ValidarDigito();
             if (result)
             Console.WriteLine("Chassi OK");
             else
