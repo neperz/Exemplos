@@ -13,6 +13,14 @@ namespace Validador
                 chassiToValidate = args[0].ToUpper();
             Console.WriteLine($"validando chassi {chassiToValidate}");
             ChassiValidator cv = new ChassiValidator(chassiToValidate);
+
+            Console.WriteLine("Validação simples");
+            var sv = cv.simple_validate_chassi(chassiToValidate);
+            if (sv)
+                Console.WriteLine("SV Chassi OK");
+            else
+                Console.WriteLine("SV Chassi Invalido");
+
             var result = cv.ValidarDigito();
             if (result)
             Console.WriteLine("Chassi OK");
