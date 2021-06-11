@@ -8,7 +8,7 @@ namespace Validador
         {
             string chassiToValidate ="";
             if (args.Length==0)
-                chassiToValidate="9BGRD08X04G117974";
+                chassiToValidate="8ANBD33Q3ML922419"; //chassiToValidate="8ANBD33B3ML922419";
             else
                 chassiToValidate = args[0].ToUpper();
             Console.WriteLine($"validando chassi {chassiToValidate}");
