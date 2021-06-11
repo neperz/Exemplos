@@ -1,4 +1,6 @@
 using System;
+using System.Text.RegularExpressions;
+
 namespace Validador
 {
     public class ChassiValidator
@@ -187,5 +189,44 @@ namespace Validador
             }
             return letraInt;
         }
+    
+ 
+    public bool simple_validate_chassi(string chassi) {
+    // 1 - Possuir o número "0" (ZERO) como 1º dígito.
+    Regex  zeroNoPrimeiroDigito = new Regex(@"^0/");
+    if (zeroNoPrimeiroDigito.IsMatch(chassi)) {
+        Console.WriteLine("1 - Possuir o número 0 (ZERO) como 1º dígito.");
+        return false;
     }
+    // 2 - Possuir espaço no chassi
+    chassi = Regex.Replace(chassi, @"\s", "");       // espacoNoChassi
+    // 3 - Se, a partir do 4º dígito, houver uma repetição consecutiva, por mais de seis vezes, do mesmo dígito 
+    // (alfabético ou numérico). Exemplos: 9BW11111119452687 e 9BWZZZ5268AAAAAAA.
+    Regex repeticaoMaisDe6Vezes =  new Regex(@"^.{4,}([0-9A-Z])\1{5,}/");
+    if (repeticaoMaisDe6Vezes.IsMatch(chassi)) {
+        Console.WriteLine("3 - Se, a partir do 4º dígito, houver uma repetição consecutiva, por mais de seis vezes, do mesmo dígito");
+        return false;
+    }
+    // 4 - Apresente os caracteres "i", "I", "o", "O", "q", "Q".
+    Regex caracteresiIoOqQ =  new Regex(@"[iIoOqQ]/");
+    if (caracteresiIoOqQ.IsMatch(chassi)) {
+        Console.WriteLine("4 - Apresente os caracteres proibidos");
+        return false;
+    }
+    // 5 - Os quatro últimos caracteres devem ser obrigatoriamente numéricos
+    Regex ultimos4Numericos =  new Regex(@"([\d]{4})");
+    if (!ultimos4Numericos.IsMatch(chassi)) {
+        Console.WriteLine($" 5 - Os quatro últimos caracteres devem ser obrigatoriamente numéricos: {chassi}");
+        return false;
+    }
+    // 6 - Se possuir número de dígitos diferente de 17 (alfanuméricos). 
+    if (chassi.Length > 17) {
+        Console.WriteLine(" 6 - Se possuir número de dígitos diferente de 17 (alfanuméricos). ");
+        return false;
+    }
+    return true;
+}    
+    }
+
+   
 }
