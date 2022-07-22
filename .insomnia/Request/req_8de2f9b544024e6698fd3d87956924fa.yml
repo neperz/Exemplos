@@ -1,0 +1,41 @@
+_id: req_8de2f9b544024e6698fd3d87956924fa
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1657298304915
+created: 1657298297600
+url: http://172.19.5.198/CADMessagesProxy/api/messages
+name: Messages
+description: ""
+method: GET
+body: {}
+parameters: []
+headers:
+  - name: Accept
+    value: "*/*"
+  - name: Accept-Language
+    value: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7
+  - name: Authorization
+    value: Bearer
+      l93mn-Sobv3tVwz9To45Wcc5fhNCKWGKMHxT_fgKycAwjUF8-PyDRWff4gITuroa4SYz7oaJMjkcUjZlKohb2coqmdbfQQI15UDz2FWD-igtkbsjr0hbkrByYFkBdM5nGK7CrwzRkTZm7dNQtJZ-CFluh9s32-sSWChKDdKuwY3L3rBY-IXbfHRCdk7uDXlblqa6zFeG8-w5DHkMuGNnKmPEtFIPwvvdYfFVtjCgvlKDIRIayBKWMEIqZ5JuooFgnuMFl53A_qghI05x_XV5_dWHrrEi5kig5C6ahXlPxMrcUpfAZgZbsytjs_WewTBcYSlgMv7a1rwTYxmUUSXqjzMp61j1RQAUOtLl-nUCndcPA2bAZQCxBuXojFPEYviaswQ7gRAC1ISxTkopyofwwebygggtUN9I0rnD_GxS-0UCV_p3APkmvp7JE4bCKJWJDhsVogLOBYxEwbP2DWObc3fPbxaKIcse0iUpDMdPi3ZNsCkwN3TPEDk94bUuPcH4ay3NR2KYfUJ30AfcGUNsLPlwnQc72_UgkK70bD3NzjWbVRD2QZk9AXhj1w2M0lm68pAxbHHCGQDV-kSqH0UwDw0h_dpWi7eFBNKKqAJEmeyL1u_9xTs15DkV6XVC5nMk34f4P5cX4ICGLi6DYQ5_7HKl4PVeISxiS57hO2HV-fJOJtYZtzJTqUTk7xK75Z7Kg2-ksC4IwU0ixXnUPH6c19B7VG9M67x16dOEb0cJquAfj1itWKUDnluANZ5HxbIPzQ-jqQ
+  - name: Connection
+    value: keep-alive
+  - name: Cookie
+    value: Culture=pt; ASP.NET_SessionId=xbq4qt5pnyig5ipkgzbihdm2;
+      __AntiXsrfToken=fe2c4da7365745139cd792e8ab1698ac;
+      .ASPXAUTH=7E7AE1AC04B0CFE45B1E79ED0730EE32A2E78B1990B46D8C24C0C5499E33FF5875D7DEA28B959BA7916C571C65C36656A77AAD6FC0A30E0DA489A0CB37E637F52FC350ACD57A3A8BB1511171976F444048F569DAE2100BC5EDB74EEBA8EDFE2E80BD156B4E02DBCC8FEF3459C47F00E56150EA3B14FA980A6262EFCCE457FAC0F93AA571BD86A3F6352E9A1E393AB048
+  - name: Referer
+    value: http://172.19.5.198/CADPortal/messages
+  - name: User-Agent
+    value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/103.0.0.0 Safari/537.36
+  - name: X-Requested-With
+    value: XMLHttpRequest
+authentication: {}
+metaSortKey: -1657298297600
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

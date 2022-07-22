@@ -1,0 +1,113 @@
+_id: req_343ecc24216c484a812576a038474fc9
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1657126243808
+created: 1657125851521
+url: http://localhost:5001/v1/domains/1/message
+name: CreateScheduleAdonRepeat6
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"Id": 0,
+    	"IsCanceled": false,
+    	"IsOverrideMuted": false,
+    	"MessageText": "Train 46, scheduled to arrive Chicago at 12:45 p.m., will board from Platform #2. Please safely make your way to Platform #2.",
+    	"TTSHintText": "Train 46, scheduled to arrive Chicago at 12:45 p.m., will board from Platform #2. Please safely make your way to Platform #2.",
+    	"BTPriority": 1,
+    	"PentaPriority": 400,
+    	"MessageScopes": "Line",
+    	"Scopes": [
+    		"Line"
+    	],
+    	"Trains": [],
+    	"Stations": [
+    		"GENEVA"
+    	],
+    	"PlayCount": 1,
+    	"PlayEvery": 5,
+    	"DisplayCount": 1,
+    	"StartTime": "2022-06-22T11:19:00-05:00",
+    	"EndTime": "2022-06-22T11:29:00-05:00",
+    	"IsScheduled": true,
+    	"ScheduleType": 1,
+    	"IsSystem": false,
+    	"ScheduledDates": [
+    		"6/22/2022 5:00:00 PM +00:00"
+    	],
+    	"ScheduledIsInbound": false,
+    	"ScheduledIsOutbound": false,
+    	"IsAllInboundSelected": false,
+    	"IsAllOutboundSelected": false,
+    	"DistributionIsEmail": false,
+    	"DistributionIsWeb": true,
+    	"DistributionIsSocialMedia": false,
+    	"ShouldCreateIncident": false,
+    	"UpdDts": "2022-06-22T11:09:04.6374416-05:00",
+    	"UpdUserId": 107,
+    	"Type": 2,
+    	"Route": "UPW",
+    	"Entity": 10,
+    	"Status": false,
+    	"Published": true,
+    	"ServiceBulletinScope": 1,
+    	"Routes": [
+    		{
+    			"RouteName": "UPW",
+    			"MessageScope": "Line"
+    		}
+    	],
+    	"URL": "",
+    	"DistributionIsGTFSRT": false,
+    	"DistributionIsApi": true,
+    	"Trips": [],
+    	"PlayCountSucceededOnVehicles": 0,
+    	"PlayCountFailedOnVehicles": 0,
+    	"PlayCountSucceededOnStops": 0,
+    	"PlayCountFailedOnStops": 0,
+    	"InboundSelectedTrains": [],
+    	"OutboundSelectedTrains": [],
+    	"IsAutomated": false
+    }
+parameters: []
+headers:
+  - name: Accept
+    value: "*/*"
+    id: pair_0875e452be4f476698c915ac061199d6
+  - name: Accept-Language
+    value: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7
+    id: pair_2b558a39dc9247aa9eadb342fc4e84b3
+  - name: Authorization
+    value: Bearer
+      WBj8JjkeaimeHGO7mJRQ11k1e04sxny5Bs2T36Xp-lFDar9Iy1nnx_MS-6INk5Eix11Y3OmeToOv9_QFrm3tBWFPaXakJYe80CHxsE0CWMZvT2DkJpcWG1pKnMZMI-fq2dITGn4tH5a_uPdEI62ywr7swghQ50byvYOqT0M4Q3mK2yZbPTEPNsk2-57cf_J8_SkDbD1ElIB5PNhOMHi_HIsFwArPEnbIZPEMY7Kv9Ctu-cjCNdJY681R8EWbELtV4OW2rzoTEsF8uv3kDgyu_r98j9JU7k7pVTGjGSMGOpRB0hDAD7uBRreCVmt061SuidCHTqtcdtjzoRHGtyxVugnDVv1quEpb3K_6JSEyvo29o_5XIObvJFPxjed6a-JoawsMSC6t_NHOMS9UBZ7yZr2PM9L7i6LjV4Bd27JhCELVEPwGZFyaxPpfo-YVGkzBIlzweEj9erJ9ASgJ_wSWAXiWEJp-P-hYkO_1jnZbiZevPJqeO2uoi5gfx_o3Q2Ux03vfICkUuu1gasaMbXj-6HlAQTY3KKFFib9MiXxoUnTg8Q2XlA_huTqe4fJ_QCR8WIAli4_85gAeintjtJ5oFrcu8Ubve1s8LUDzTQHosClJAOC1q9D4OTYLeTTuCPNuuSifR5WmrJ52nDSq8NNjc9qbuXUfYKglNyPaVEPvEBSvwAVzkB5ztECfPRluj1O82wFWMkk68v3yrpB1NgFqmhx7XMs59W8X3RFwP0BiMJnNJhk8E0bI79oQsdc18v-CFc-T5g
+    id: pair_db22b8ecd61c4abf9a4b1d7cb744aa6d
+  - name: Connection
+    value: keep-alive
+    id: pair_a5d8333d3dde490fab6c64ac99686e30
+  - name: Content-Type
+    value: application/json
+    id: pair_864aae62adb94537bf9cd049ac7177c3
+  - name: Origin
+    value: http://172.19.5.198
+    id: pair_5ed34eda33194975a87b668f658132b2
+  - name: Referer
+    value: http://172.19.5.198/CADPortal/messages/announcement/send
+    id: pair_f8a337c7141b458fa83a0f079cf3abe0
+  - name: User-Agent
+    value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/103.0.0.0 Safari/537.36
+    id: pair_154366794d5d4e30a9ed5b8e5c998486
+  - name: X-Requested-With
+    value: XMLHttpRequest
+    id: pair_021f61cd37464957aa3c1b1cf07134fc
+authentication: {}
+metaSortKey: -1656628035438
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

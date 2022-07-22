@@ -1,0 +1,30 @@
+_id: req_4b5e806212b346259f9c58e1d298a2c3
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1657640281980
+created: 1657571684648
+url: http://localhost:5001/v1/domains/1/phoneticLibrary/replacestring
+name: Phonetic5001
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"CultureCode":"en-US",
+    	"Text":"testing"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_7e1532c064fe49cbb4ff4b3c8e943f93
+authentication: {}
+metaSortKey: -1657571684648
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

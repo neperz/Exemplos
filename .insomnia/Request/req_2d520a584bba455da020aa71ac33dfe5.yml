@@ -1,0 +1,59 @@
+_id: req_2d520a584bba455da020aa71ac33dfe5
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1658175505693
+created: 1657303109539
+url: http://172.19.5.198/CADProgrammaticProxy/api/RemoteLogonService/RemoteLogon/1
+name: LogOn
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    "vehicleNumber": "3755",
+    "operatorID": "12",
+    "dispatcherID": "3",
+    "workID1": "BNSF",
+    "workID2": "1316"
+    }
+parameters: []
+headers:
+  - name: Accept
+    value: "*/*"
+    id: pair_fe6e7b2d3db14b3098dc8b0ac7957a4d
+  - name: Accept-Language
+    value: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7
+    id: pair_309c2f5949be4df59a52681914f84651
+  - name: authorization
+    value: Bearer
+      bQskDjughLEaX-5peyLppIoPwRYdyd89SWU4NNGHHEGwyl8KIpspn9gjBnPQpc3c38jgcYO_ZMEc-b7GGY90pB-NyL8-rVP7O9MdgLQnlTm1EvXTAM7OL2vXJKVz35r4wBIvoLGdgpDX6Do0Hg4wCAwNpd8Qnl2a5JHKT2r9_rFeXW4Ee5SfDbVH-hLzovPMx1hhVEv2W_LKiRdbh_OKJvwZ-P2kU0eHPFuF55P2RFZBO7oYK9v18XbZuvIUTSc9JntoOpzkJPSwUMkbe9_QwSK5upeXVGaE6ZZ4eqqP-Mgm0biuom6bLwFm3alZcAhWr0NpAeh68B6rCSVRKP6iAyO4OPzKbiEhKirhbvZO8GUNF-NECJV0L91d9NHcN4gWftoGhlg5J3luiGGGpvh4yLIB98HpsZq8YHRT7kWUsTlVkIaYrk08irw4PA3Cxx02wlObQ7JrCVcT1EzXRSboKOydLNm-jRUDmLON5uwZW1eg57QUQ7tNRlBoSX7wH810aJaGdmkuuKgY7DtggsX3qdp40kKuhV2n5qWNs_el1zyGec7YxYFJuA_j-979DJuIfELtpJrhbj1ZgsqhnK4wP7tiBSDuqNt4ajb7fC1jW-yCNDXhI6KDU6ga8gDT9OZaixMkZVsRaUPu7jjVtC1xDCYvbjE1iovxlpYrrQSLmI0AgUVffiWFn4hqtPUWcr8M9Fa9ucPIX7DCNFQyevb4GIgS0PlXXG--YyAn7_LrDw1gJfV3bx3tv7LDKv54zpbytcmHQPq1QNU_3Sj1oIO3IHVwWjI
+    id: pair_976806804e6f4ec3a8274096766cf794
+  - name: Connection
+    value: keep-alive
+    id: pair_69991d2a8335499fbf423891e2b786c6
+  - name: Content-Type
+    value: application/json
+    id: pair_5c689e4a620e4db986a7b89106e9a57e
+  - name: Origin
+    value: http://172.19.5.198
+    id: pair_36c3599422d842549565d4fbb7b94c67
+  - name: Referer
+    value: http://172.19.5.198/CADPortal/messages/announcement/send
+    id: pair_675e6d046bab420c804606b83bb69336
+  - name: User-Agent
+    value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/103.0.0.0 Safari/537.36
+    id: pair_a2769431d7a04b6f93f1d2c08ac49879
+  - name: X-Requested-With
+    value: XMLHttpRequest
+    id: pair_c813a69ee6fe4fde82f25f1b0bac3ab5
+authentication: {}
+metaSortKey: -1656628035753.625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

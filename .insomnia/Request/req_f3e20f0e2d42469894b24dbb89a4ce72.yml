@@ -1,0 +1,61 @@
+_id: req_f3e20f0e2d42469894b24dbb89a4ce72
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1657637931678
+created: 1657571226081
+url: http://localhost:57235/api/PhoneticLibrary/replacestring
+name: Phonetic
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"Text": "teste",
+    	"CultureCode": "en-US"
+    }
+parameters: []
+headers:
+  - name: Accept
+    value: "*/*"
+    id: pair_91c128814c0a424bad25f777cef00929
+  - name: Accept-Language
+    value: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7
+    id: pair_3a157f06ff15485a83c5641ce3475e7f
+  - name: Authorization
+    value: Bearer
+      dHKtGKgq-swF6StWZxj_dX6BBCZMwwbnNuJShh-LHscBftDBEdf5YKP-dBO7-2NK06G-LALhHa3n5P4Yk5Cqyvl4qrLfXbWFstJhiStkkcph6smtNBiOgPs3SQ4PgzqGsv7hGRCJA-6UbGICGbgP6rs26r9g7xkpRT4gvxnRd4liz8x-mXqcZcJZvTvTTyc-3ZDa7hG06xrkvye8J-dfc6rh_gTsau6dlVbsavgy9TbWrEsD8PkVS7VP8XyOSP-DHf0lFoysw9cuZJyhUiZJPqhkFlD-aNAh_89Sv5D1jjbaY-iJk3FYslWCnO4zri7UvDnq80r80GbGyiiPW38_YwbRyq1cJMoiArDt7VLFCVi6y5YHthatvJvzXsqqc-W4U6sayaVQrrie2ZaJqFNFfZ2nwt249iDicjjuN7HDsxuyeF_8OqMjuXDpQ51Ob-2P5BxfRjoivmRISnT_9UYo46g4DG4yb9aW-o-w8_bBpDZxeilgcJY4WH-5Ne-kP_A4gzhOiCiSStxx54UXbx4-U2caqgqTJiOJkG5QHkHb-1SROYn8wV2RRR3qLIE8kw81xKoyrkyX3_zUhmFZ6Dqra74omQ91nX-z8IHkJrLuM2AS9XOSIhS6nzfMad-UkjYLicDdLl5aPFuunKQcWWGrooDIrNxkwiKJxiyX9Whzi3SEAcemHH7eX3iCrBhyEemCiz8yhUTsh77Fxy5820DI_LnYyewLEHee3izrBD1UOgWLULppMwPFljzeM0x5ksuFSDyKPA
+    id: pair_f6934f82e4de46dfbf08cb858dbe1070
+  - name: Connection
+    value: keep-alive
+    id: pair_e2c46d95355a45b180cd5fe381c2555a
+  - name: Content-Type
+    value: application/json
+    id: pair_9eefe159f3604160adcb0ca4c8a8f019
+  - name: Cookie
+    value: Culture=pt; ASP.NET_SessionId=xbq4qt5pnyig5ipkgzbihdm2;
+      __AntiXsrfToken=52c9ca3c7bcd4200a63833c94abdb3a8;
+      .ASPXAUTH=B51D66FDC24DD75D1A97E7B8EEBAB125C55DEA79083FCF08A1B0A1B38E9D4BEF2EB8D978567569BAC8E9E4032A464B9AB7E7886A664CAA96F7DFB75D5BDACCD3156D11124BE29A91FE84C32B86FE13438445987C74E3235129929CAAB8319EF42032F2AA228CA4A613680ABBD67345A860C41247D3423B639391373158C6900BC030B4EDAAC5A86C2CF664AEA50616B5
+    id: pair_a377bb8bb4be4c41a4e27950bf9a1707
+  - name: Origin
+    value: http://172.19.5.198
+    id: pair_24eef38f7e97434ab10ba8525170a86b
+  - name: Referer
+    value: http://172.19.5.198/CADPortal/messages/announcement/send
+    id: pair_5cdef9f2d8a6403a9c04e64a5ae69622
+  - name: User-Agent
+    value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/103.0.0.0 Safari/537.36
+    id: pair_44cc1b0f022a4a8b8b58d68d92ec4a19
+  - name: X-Requested-With
+    value: XMLHttpRequest
+    id: pair_54f9f22923d14c198a218ebbc5ca971e
+authentication: {}
+metaSortKey: -1657571226081
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

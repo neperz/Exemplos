@@ -1,0 +1,516 @@
+_id: req_4e315ed5e02d40dc89aa88165f2ffb4a
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1658361148092
+created: 1657816904426
+url: http://localhost:57235/api/messages/create
+name: CreateAnouncementStation
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"id": 0,
+    	"isCanceled": false,
+    	"isOverrideMuted": false,
+    	"messageText": "just aurora station",
+    	"TTSHintText": "just aurora station",
+    	"bTPriority": 1,
+    	"pentaPriority": 1,
+    	"playCount": 2,
+    	"serviceBulletinDestinations": [
+    		{
+    			"name": "twitter",
+    			"textLength": 280,
+    			"enabled": true
+    		},
+    		{
+    			"name": "signs",
+    			"textLength": 256,
+    			"enabled": true
+    		},
+    		{
+    			"name": "web",
+    			"textLength": 1024,
+    			"enabled": true
+    		},
+    		{
+    			"name": "sms",
+    			"textLength": 121,
+    			"enabled": true
+    		},
+    		{
+    			"name": "gtfsrt",
+    			"textLength": 1024,
+    			"enabled": true
+    		},
+    		{
+    			"name": "api",
+    			"textLength": 1024,
+    			"enabled": true
+    		},
+    		{
+    			"name": "email",
+    			"textLength": 1024,
+    			"enabled": true
+    		}
+    	],
+    	"communicationParameters": [
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Divisions",
+    			"communicationTabDescription": "Divisions",
+    			"sectionName": "Comm Center - Announcements",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Lines",
+    			"communicationTabDescription": "Lines",
+    			"sectionName": "Comm Center - Announcements",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "System",
+    			"communicationTabDescription": "System",
+    			"sectionName": "Comm Center - Announcements",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Trains",
+    			"communicationTabDescription": "Trains",
+    			"sectionName": "Comm Center - Announcements",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Blocks",
+    			"communicationTabDescription": "Blocks",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Console",
+    			"communicationTabDescription": "Console",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Depot",
+    			"communicationTabDescription": "Depot",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Employee",
+    			"communicationTabDescription": "\tEmployee",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Private List",
+    			"communicationTabDescription": "Private List",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Public List",
+    			"communicationTabDescription": "Public List",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Routes",
+    			"communicationTabDescription": "Routes",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Runs",
+    			"communicationTabDescription": "Runs",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "ServiceTypes",
+    			"communicationTabDescription": "Service Types",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "VehicleGarage",
+    			"communicationTabDescription": "Vehicle Garage",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "VehicleGroups",
+    			"communicationTabDescription": "Vehicle Groups",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Vehicles",
+    			"communicationTabDescription": "Vehicles",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "VehicleStatus",
+    			"communicationTabDescription": "Vehicle Status",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "WorkID2",
+    			"communicationTabDescription": "WorkID2",
+    			"sectionName": "Mail Client",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Blocks",
+    			"communicationTabDescription": "Blocks",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Console",
+    			"communicationTabDescription": "Console",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Depot",
+    			"communicationTabDescription": "Depot",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Employee",
+    			"communicationTabDescription": "Employee",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Private List",
+    			"communicationTabDescription": "Private List",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Public List",
+    			"communicationTabDescription": "Public List",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Routes",
+    			"communicationTabDescription": "Routes",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Runs",
+    			"communicationTabDescription": "Runs",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "ServiceTypes",
+    			"communicationTabDescription": "Service Types",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "VehicleGarage",
+    			"communicationTabDescription": "Vehicle Garage",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "VehicleGroups",
+    			"communicationTabDescription": "Vehicle Groups",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Vehicles",
+    			"communicationTabDescription": "Vehicles",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "VehicleStatus",
+    			"communicationTabDescription": "Vehicle Status",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "WorkID2",
+    			"communicationTabDescription": "WorkID2",
+    			"sectionName": "Public Service Announcement",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Blocks",
+    			"communicationTabDescription": "Blocks",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Depots",
+    			"communicationTabDescription": "Depots",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Dispatchers",
+    			"communicationTabDescription": "Dispatchers",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Drivers",
+    			"communicationTabDescription": "Drivers",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "GeoZones",
+    			"communicationTabDescription": "GeoZones",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Groups",
+    			"communicationTabDescription": "Groups",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Routes",
+    			"communicationTabDescription": "Routes",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Runs",
+    			"communicationTabDescription": "Runs",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "ServiceTypes",
+    			"communicationTabDescription": "Service Types",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "VehicleGarages",
+    			"communicationTabDescription": "Vehicle Garages",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "VehicleGroups",
+    			"communicationTabDescription": "Vehicle Groups",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "Vehicles",
+    			"communicationTabDescription": "Vehicles",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		},
+    		{
+    			"communicationTabID": 0,
+    			"communicationTabName": "WorkID2",
+    			"communicationTabDescription": "WorkID2",
+    			"sectionName": "Voice Dialog",
+    			"visible": true,
+    			"deleted": false
+    		}
+    	],
+    	"displayCount": 2,
+    	"startTime": "",
+    	"endTime": "",
+    	"displayStartTime": "",
+    	"displayEndTime": "",
+    	"shouldCreateIncident": false,
+    	"type": 2,
+    	"entity": 1,
+    	"scopes": [
+    		"Lines"
+    	],
+    	"route": "BNSF",
+    	"stations": [
+    		{
+    			"geoReference": "AURORA",
+    			"routeReference": "BNSF",
+    			"userSelected": true
+    		}
+    	],
+    	"trains": [],
+    	"isScheduled": false,
+    	"scheduleType": 1,
+    	"scheduledIsInbound": false,
+    	"scheduledIsOutbound": false,
+    	"isAllInboundSelected": false,
+    	"isAllOutboundSelected": false,
+    	"scheduledDates": [],
+    	"playEvery": 30,
+    	"routes": [],
+    	"selectedMultipleLines": [],
+    	"selectedSingleLines": [],
+    	"selectedDivisions": [],
+    	"distributionIsAll": false,
+    	"distributionIsEmail": false,
+    	"distributionIsWeb": true,
+    	"distributionIsGTFSRT": false,
+    	"distributionIsSocialMedia": false,
+    	"distributionIsSMS": false,
+    	"distributionIsApi": true,
+    	"isSystem": false,
+    	"published": true,
+    	"publishedRequestPending": false,
+    	"serviceBulletinScope": 1,
+    	"url": "",
+    	"trips": [],
+    	"inboundSelectedTrains": [],
+    	"outboundSelectedTrains": [],
+    	"inboundSelectedTrips": [],
+    	"outboundSelectedTrips": [],
+    	"originalMessageID": null
+    }
+parameters: []
+headers:
+  - name: Accept
+    value: "*/*"
+    id: pair_9f7c1803ca4a413daca3fd8b4e6444a4
+  - name: Accept-Language
+    value: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7
+    id: pair_e17e7b5394674bdf8df015e8486e4a96
+  - name: Authorization
+    value: Bearer
+      J7DWH2YZMgtoH_lDewWWSsqRkLXg10_mfPnlfZ0omB59sOt-0zAze887lnIgk4gjJ6b4gwbX916D38N8KQc35kZMlu83OeUAFo3DzRm7MYDZ4SZADZUe5TIwzWsz--BonvswKerQ0D6qNW-bbrePEEqM4ldZp_lc0M8hl4b-PEh_gycAiOMSSEPDqLopJ1EmXhhYbM6LYzD-BdvrcZpBDaXoBRBs_VkXJQr4vNs7eBXHksCz7Rxzq85yiIWnCQcQQUl95LIpVKI8RgPxjHhfuKbqmp322a51QnUkcL3DWMJyB9Yhm7DsR65bI8eIBW0U6XEWtY5OvVbRZ69-VF-1WAKlxMFSN7QcyK8m5XJ1iK1RwH9qb2GhlYGRyYxTNX4H-chWEHlkcPw2bfQSYumeNyHXO-AG0fUssxd4WpsOSkOLo8aA59F_wKVM_ixyFgRwrm00tAYfCGA3JPtNpIYlv5MWbNNYkqykrJU3LPci3ji2lEtr2l1dCYgYZ6at5Hp7TYrnHN_vchJBTWu28ZfuF1boufXYyWue1VGX67U0CtV88heWcaSCh_GvGVAtgr_31sWcpMXVqTTBXOky9tWzUXv1CrH_zwCS4cOQ3SjR7ecPN86Sd9ZAuxwmIdUcDd4iYbReTIyVbEgjl1cFgmdb05YQV2pQJQl0C4rHujisZhrkLn0qjjOlio7-r9-q2JlNkXqXKLcuwLELFvvOeUK7PMA1YDNMUFRMqjCnrqB4YZPAS4FMgCayM-YUNvuw4-sarni9gxpZ6UDDa2vm_eDxrzdM3KA
+    id: pair_0298b181a1ed4f9682d317966d4a753e
+  - name: Connection
+    value: keep-alive
+    id: pair_e3b5605c534d4b0bb0a77b8715429821
+  - name: Content-Type
+    value: application/json
+    id: pair_cf3f0c843adc4541897ace15af80ba7d
+  - name: Cookie
+    value: Culture=pt; ASP.NET_SessionId=xbq4qt5pnyig5ipkgzbihdm2;
+      __AntiXsrfToken=43bf40c993d347c3863f3e8854206de4;
+      .ASPXAUTH=0371A1242103798919231F45A1B39E1F8D38537E6C4DCC94E3D169325391A370B2CD529A7BE0BD53F4124BDAD46126CA647324BBAE543D7B97B256A1507221F8310DFD2F87C090A754569D25151F71344E143FC857E2CA5D92F93BF0A54A0118216F0E09C36BEBCC671C0419E64DD930F5A45CE64E4CE1E30EAC98723DDD7A78401BFAEF29EBF9EA01765F4D44E7C3BA
+    id: pair_551715a07388430fbf556c6fd4304b60
+  - name: Origin
+    value: http://172.19.5.198
+    id: pair_ae19ced82e734c979fce2a4fddf5bdf7
+  - name: Referer
+    value: http://172.19.5.198/CADPortal/messages/announcement/send
+    id: pair_0959271d41f34bfd8901657f25e71b44
+  - name: User-Agent
+    value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/103.0.0.0 Safari/537.36
+    id: pair_50682bb88c7c42318b50c073ef299863
+  - name: X-Requested-With
+    value: XMLHttpRequest
+    id: pair_1cff7f84dac541fea02348da016d14ef
+authentication: {}
+metaSortKey: -1656628035663
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

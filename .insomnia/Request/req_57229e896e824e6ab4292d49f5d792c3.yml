@@ -1,0 +1,30 @@
+_id: req_57229e896e824e6ab4292d49f5d792c3
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1657747528844
+created: 1657637929473
+url: http://172.19.5.198:5001/v1/domains/1/phoneticLibrary/replacestring
+name: PhoneticVm
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"CultureCode":"en-US",
+    	"Text":"foo"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_7e1532c064fe49cbb4ff4b3c8e943f93
+authentication: {}
+metaSortKey: -1657571455364.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,47 @@
+_id: req_3ce77e757da74d4fbe6071dd231853fd
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1657302901443
+created: 1657302554633
+url: http://172.19.5.198/CADProgrammaticProxy/trainschedule/1/HC/914/07-08-2022
+name: GetTrainSchedule
+description: ""
+method: GET
+body: {}
+parameters: []
+headers:
+  - name: Accept
+    value: "*/*"
+    id: pair_fe6e7b2d3db14b3098dc8b0ac7957a4d
+  - name: Accept-Language
+    value: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7
+    id: pair_309c2f5949be4df59a52681914f84651
+  - name: authorization
+    value: Bearer
+      ISgMS2-8lSVmdYVdnQ9elsrETwA2KlyHvLGymyBaR3kDZQd04FlO9bq7lSueLCoBqu_IA6skfXNJQLjrjJbgJdbhxEX-6320fewaBhr4r5cgLoXM6twZUkDHA2P-b7U4VWSJXynXlVlVY270TZrmyid5wtbG3EkajphlL49AinKXQi5BMVyLiBOjLWPV7RBBbTb6O8WYnVActaK3rH8panYu5axGMATIM8P_m1BTAIv4tYIb50_T4F0HZz-pOt9Zqdip6BcgUo9Aq56hXQ3ty-rvkGw9QrQ7S5j40DzmAidXNi2w1lIlL_YulSJBn3GKRgvhkBOtvZcRxuEgkUR_nB_xXi5fH9p7HN4-1FwVjcp1LUvyjLxzuOxW9mcYLVmdSM5q2ZO2hxp1V6sVFWJ7gXozSPmm_9fI46RiPJZqk1CWZ1bMOhaPhY7dOItRouCenObM1_RfI13TMRwg7-MTNEb5PivqrczYAeUf0pWIYj_15Z8sPA2I0lXUVon14zZ-BUGk45WGbRH2OmLH46jtXlQh4wxRmvCjrCofVIDssTnYNJMQhjz_PgvReGvesZiv_lchykKChq-5TKQ02XprGMDi8fAq4tlZ7N8DnC3jjjNzr9F-jSsPc_1wBkGBQIqw2hn3U2mX1ZhTXKa6fBj2JA_FWfmk1XXZZSD5leXOoYWODKzxBO6BlJ6bM2gZKMBgaaqKetwOvulHGqU35vDJKjZR4Wr6dYuhnm3gZPF3_KrAqdKBwlK6wYNiYziGhVMhN3ejDA
+    id: pair_976806804e6f4ec3a8274096766cf794
+  - name: Connection
+    value: keep-alive
+    id: pair_69991d2a8335499fbf423891e2b786c6
+  - name: Origin
+    value: http://172.19.5.198
+    id: pair_36c3599422d842549565d4fbb7b94c67
+  - name: Referer
+    value: http://172.19.5.198/CADPortal/messages/announcement/send
+    id: pair_675e6d046bab420c804606b83bb69336
+  - name: User-Agent
+    value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/103.0.0.0 Safari/537.36
+    id: pair_a2769431d7a04b6f93f1d2c08ac49879
+  - name: X-Requested-With
+    value: XMLHttpRequest
+    id: pair_c813a69ee6fe4fde82f25f1b0bac3ab5
+authentication: {}
+metaSortKey: -1656628035750.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

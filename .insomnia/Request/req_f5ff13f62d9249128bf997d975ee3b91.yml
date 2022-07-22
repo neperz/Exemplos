@@ -1,0 +1,44 @@
+_id: req_f5ff13f62d9249128bf997d975ee3b91
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1658175512647
+created: 1657048423773
+url: http://172.19.5.198/CADScheduleEditorAPI/TrainToday/routes/route-data/2022-07-08/1
+name: CreateScheduleAdon
+description: ""
+method: GET
+body: {}
+parameters: []
+headers:
+  - name: Accept
+    value: "*/*"
+    id: pair_1d7e6f8e7df44c24882c74a4d1b7d0c6
+  - name: Accept-Language
+    value: en-US,en;q=0.9
+    id: pair_cd8e2424a25e4e0199b2877eb1d083f4
+  - name: Connection
+    value: keep-alive
+    id: pair_cc37713c8e594858a670b6ea26a30deb
+  - name: Referer
+    value: http://172.19.5.198/CADPortal/schedule-editor
+    id: pair_c99db408ed334d86ad4e60a8a9fa24ee
+  - name: User-Agent
+    value: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/103.0.0.0 Safari/537.36
+    id: pair_eba0b6899425410dacf8e677d36f3a1e
+  - name: authorization
+    value: Bearer
+      MZsF3PWlgR_Ida8OyZjeJXr1b7Srd_mh1175xj8YwG2jta7eZscxG4womT4YmiGK-JD8snOUp4a7cf5hAZxfUhdGDokN8YcBYDGF7SCyu3gYFhZ15GxqK-LW7ImRG04rI2Jvl_kWZFvhobR43xTDL28t_aWZsmtS2BABG2AcXENWc6y71KZ4WNspHRE_Zhy7KhzIxBjGWbKlsdo4qpkyaKV-ubY2fcpksZMVWApHf_tIUep5a4MuK3iVDtjvc6df4ikE5Iyic1tV4uRpvwpm1bfelJ_vKyIZLmTQTb2RzugeEyQFA9LWbGoiKHquc3KMGky4VtQycNJvqAM4t016FDRODjl2fSYcL1rOtdbV6FI4yKUCfLsUfBoD5P5vjeVcWydqoAJlW-QUpNl0czeg-bdWgVfvMO-PvsxFIPrpsJHqZkSn7MDdkVXD6ARdkiOvtHv0U_Yp2ThkQlMIay0ptBcDCFL4paif8i4O11rHpwDkJElSMkgzpQE0_YgTSBXN-vrpO8zoEf9K0gH_5B84KaPFiqIc4h_6WtoK84XW3IuAc4E0KQklTz997KstyuUJNNMogT_yZ4IOCX3-8QFO0OI3rT4iXEQSt4ryQwhBe2krWi5rh2nRa-GhrOxWe4j2KvkMG4mBmIc3Kz_QjowQ-WNHtrtBh5nLcYbewI3mz17l3UNQVyt6lBHbZ1AfosC2nqXGVfkYn6zOPzMyswmhHptsh4tch_ENGTjMCP-n0SUnTcDC5_Vc5PXsGcEJg1iyOHO9OQ
+    id: pair_98c9b194a1874ae29d272b727dd21d48
+  - name: x-requested-with
+    value: XMLHttpRequest
+    id: pair_2cb1965a606a47d3938d49ba41bfc153
+authentication: {}
+metaSortKey: -1656628035738
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

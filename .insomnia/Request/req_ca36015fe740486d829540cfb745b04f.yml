@@ -1,0 +1,61 @@
+_id: req_ca36015fe740486d829540cfb745b04f
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1657302645371
+created: 1657300090080
+url: http://172.19.5.198/CADProgrammaticProxy/trainschedule/modifyStation/1
+name: ModifyStation
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"TrainNumber": "914",
+    	"ServiceDate": "07/08/2022",
+    	"StationShortname": "LOCKPORT",
+    	"SignupVersion": 116,
+    	"Line": "HC",
+    	"offsetValue": 60,
+    	"DwellTime":1
+    }
+parameters: []
+headers:
+  - name: Accept
+    value: "*/*"
+    id: pair_fe6e7b2d3db14b3098dc8b0ac7957a4d
+  - name: Accept-Language
+    value: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7
+    id: pair_309c2f5949be4df59a52681914f84651
+  - name: authorization
+    value: Bearer
+      I_k6Jz95NLEF7aPcJYBIJ1LwlJ8xKw42Pz8qn8Yf61Y-9VtXDeqk76En3wYXBNg9S1ReGFdw-BcT0XbT_1jCa1ZAiTRle27z8XSoS_pJNAMgSjcRaWLwpPywXgBT9QSCyY7srW9VU2T086tgRp7ECoPjUfSuzDMgfF5Dcmmy3-Lm_fPx7f-tnWzaIITd5SaLKxK8bxKW9eznHRK5VRs8FKecK_X_CCRhe2YgMbrro8cDgQ2jNCZS6WN70Jllp8qPsVSBpdhccW86eMT85V1WHo4cM2w_PDntj6FMP9lrB1INd3S5CtkQjUIg5HK_VB3kY8c-VCU_2__ae89G943e_umWIRcmHEpfAvpidUr_jdqjLdRW65XAEYpivLgN05MSx77I7wdGusd6FABrMBqHwH3yNp33ti56Yr-I76zCt2HY7cxZ4sOo4GnLjIM_W_m-yGlR6yB9RvCwhh_kPdFfAO5PUit_rFH-OSzCI_VnquvXGQqkWhybJr78FoCJV5A5eDZxbxDyYJOMOKnqGtw-ajvoeGfAjRqWYBXyNq0lrBC-P1LkDpY3GGfkDh_DcPiGkt-1MMHudxfLS8PRFYNK8l8NKILLZY2Fk0xEJyK-tx5vW5TtdcN727BlVZa8538Nujy_cUs-RCBp11hlNCoEyFQoUhG-NbhQPKGy_bpcWwfM97oIIeVHBDq5m_TIljRnXu47tbUul4zRuSOgEOj7dNdWEStJdhDYSbbIGNyib37n-X1bTx4s_D4HfPzYyc2EnGNghQ
+    id: pair_976806804e6f4ec3a8274096766cf794
+  - name: Connection
+    value: keep-alive
+    id: pair_69991d2a8335499fbf423891e2b786c6
+  - name: Content-Type
+    value: application/json
+    id: pair_5c689e4a620e4db986a7b89106e9a57e
+  - name: Origin
+    value: http://172.19.5.198
+    id: pair_36c3599422d842549565d4fbb7b94c67
+  - name: Referer
+    value: http://172.19.5.198/CADPortal/messages/announcement/send
+    id: pair_675e6d046bab420c804606b83bb69336
+  - name: User-Agent
+    value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/103.0.0.0 Safari/537.36
+    id: pair_a2769431d7a04b6f93f1d2c08ac49879
+  - name: X-Requested-With
+    value: XMLHttpRequest
+    id: pair_c813a69ee6fe4fde82f25f1b0bac3ab5
+authentication: {}
+metaSortKey: -1656628035763
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

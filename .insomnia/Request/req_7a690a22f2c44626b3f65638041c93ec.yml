@@ -1,0 +1,62 @@
+_id: req_7a690a22f2c44626b3f65638041c93ec
+type: Request
+parentId: wrk_d6213d853c0f4b6e9f1f1ce906ee0cf4
+modified: 1658175462838
+created: 1658175456516
+url: http://172.19.5.198/CADAuthenticationServerAPI/token
+name: GetToken
+description: ""
+method: POST
+body:
+  mimeType: application/x-www-form-urlencoded
+  params:
+    - name: grant_type
+      value: refresh_token
+      id: pair_46725e18caad46c19461ee99af9341ed
+    - name: refresh_token
+      value: efc8e5bc60ee494397a8ba08700582d7
+      id: pair_2c905e0f0b51470eaeb7ddfa60d881fe
+parameters: []
+headers:
+  - name: Accept
+    value: "*/*"
+    id: pair_9b10ab95241c466fb076a19975602f9c
+  - name: Accept-Language
+    value: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7
+    id: pair_c4a3d682b5a84465a09285e8b119e907
+  - name: Cache-Control
+    value: max-age=0
+    id: pair_dbec0fd0ab2b4fba8a79c5ce2a8e97e3
+  - name: Connection
+    value: keep-alive
+    id: pair_2aea53ac6aec4fb1ad1e1cec37e67f43
+  - name: Content-Type
+    value: application/x-www-form-urlencoded;charset=UTF-8
+    id: pair_bbcc8ca2adeb4ef1a1d8c6d714fef848
+  - name: Cookie
+    value: Culture=pt; ASP.NET_SessionId=xbq4qt5pnyig5ipkgzbihdm2;
+      __AntiXsrfToken=14cd5f5bb99740e08cbbc50764df698a;
+      .ASPXAUTH=B6DF8102005F42107F2133136192F27D04465C95C3A2052DC2C4E46FCE4E0FB9C1CEE4750C5A7BB9E24811CBB0F8C922D3AD6CA5C5F183005FB0233D84CDA4D4E77AF3C9E7F13A61F8C008A2012CBACDE8D2D183339D96B02181704E72CA44CAC0B938B0150B155408069EB12C94B5127FC319B66662FE2136CF6943F14253C13D9B97E55DBA5AC42EC5DF005E85DDA1
+    id: pair_b9d779afdd2246de83fac0a105e1cf71
+  - name: Origin
+    value: http://172.19.5.198
+    id: pair_87b0e98ef6dc42929f91e5710a7f4f5a
+  - name: Referer
+    value: http://172.19.5.198/CADPortal/login?redirect=/messages
+    id: pair_2e4f41702b2241a1bacc66a07a288b66
+  - name: User-Agent
+    value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+      Gecko) Chrome/103.0.0.0 Safari/537.36
+    id: pair_365a4d7dcad64c88ae19ce1ff24bd6ab
+  - name: X-Requested-With
+    value: XMLHttpRequest
+    id: pair_4c98eefc9a504580be8d25300f4f3389
+authentication: {}
+metaSortKey: -1656628035752.0625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
