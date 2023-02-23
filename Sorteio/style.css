@@ -1,0 +1,107 @@
+/* Fontes */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+
+/* Cores */
+:root {
+  --cor-primaria: #00695c;
+  --cor-secundaria: #00acc1;
+  --cor-terciaria: #b2dfdb;
+  --cor-texto: #212121;
+}
+
+/* Estilos para o body */
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  background-color: var(--cor-terciaria);
+}
+
+/* Estilos para o container */
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+/* Estilos para o título */
+h1 {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--cor-primaria);
+}
+
+/* Estilos para o input */
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  font-size: 1.2rem;
+  color: var(--cor-texto);
+}
+
+/* Estilos para o botão */
+button {
+  background-color: var(--cor-secundaria);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #007d8c;
+}
+
+/* Estilos para o resultado */
+#result {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--cor-primaria);
+}
+
+/* Estilos para a lista de últimos números */
+#recent-numbers-list {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+  text-align: left;
+}
+
+#recent-numbers-list li {
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+  color: var(--cor-texto);
+}
+
+/* Estilos para o botão de limpar */
+#clear-button {
+  background-color: #f44336;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 20px;
+}
+
+#clear-button:hover {
+  background-color: #c62828;
+}
