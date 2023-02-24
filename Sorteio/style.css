@@ -9,6 +9,9 @@
   --cor-terciaria: #b2dfdb;
   --cor-texto: #212121;
 }
+@media (max-width: 600px) {
+  /* estilos para dispositivos móveis */
+}
 
 /* Estilos para o body */
 body {
@@ -42,13 +45,18 @@ input[type="text"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
+  font-size: 16px;
   border: none;
   border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  font-size: 1.2rem;
-  color: var(--cor-texto);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px; /* ajustar para o tamanho desejado */
+  margin: 0 auto;
+}
 /* Estilos para o botão */
 button {
   background-color: var(--cor-secundaria);
@@ -79,13 +87,20 @@ button:hover {
   list-style: none;
   margin: 20px 0;
   padding: 0;
-  text-align: left;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 #recent-numbers-list li {
-  margin-bottom: 5px;
-  font-size: 1.2rem;
-  color: var(--cor-texto);
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 5px;
+  cursor: default;
+  user-select: none;
 }
 
 /* Estilos para o botão de limpar */
@@ -104,4 +119,21 @@ button:hover {
 
 #clear-button:hover {
   background-color: #c62828;
+}
+
+button[type="submit"], #clear-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover, #clear-button:hover {
+  background-color: #0062cc;
 }
