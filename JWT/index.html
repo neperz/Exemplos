@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JWT Parser</title>
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3957723726095018"
+     crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1>JWT Parser</h1>
+    <form>
+      <label for="jwt">Insira o token JWT:</label>
+      <input type="text" id="jwt">
+      <button type="submit">Parse</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+      const form = document.querySelector('form');
+      const jwtInput = document.querySelector('#jwt');
+      const resultDiv = document.querySelector('#result');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const token = jwtInput.value.trim();
+        if (!token) {
+          resultDiv.textContent = 'Por favor, insira um token válido.';
+          return;
+        }
+
+        try {
+          const [header, payload, signature] = token.split('.');
+          const headerDecoded = JSON.parse(atob(header));
+          const payloadDecoded = JSON.parse(atob(payload));
+
+          resultDiv.innerHTML = `
+            <h2>Header:</h2>
+            <pre>${JSON.stringify(headerDecoded, null, 2)}</pre>
+            <h2>Payload:</h2>
+            <pre>${JSON.stringify(payloadDecoded, null, 2)}</pre>
+            <h2>Signature:</h2>
+            <pre>${signature}</pre>
+          `;
+        } catch (error) {
+          resultDiv.textContent = 'Erro ao realizar o parsing do token.';
+        }
+      });
+    </script>
+  </body>
+</html>
