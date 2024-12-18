@@ -2,6 +2,8 @@ function generateQRCode() {
   const container = document.getElementById('qrCodeContainer');
   container.innerHTML = ''; // Limpa o conteúdo anterior
 
+  const hasMoldura = document.getElementById('moldura');
+  console.log(hasMoldura.checked);
   const frameColor = document.getElementById('frameColor').value;
   const labelColor = document.getElementById('labelColor').value;
   const qrBackground = document.getElementById('qrBackground').value;
@@ -9,13 +11,26 @@ function generateQRCode() {
 
   const qrdatatext = document.getElementById('text').value;
   const qrlabeltext = document.getElementById('qrlabel').value;
-
-  generateQRCodeWithRoundedFrameSVG('qrCodeContainer', qrdatatext, qrlabeltext, {
-      frameColor,
-      labelColor,
-      qrBackground,
-      labelFont
+  if (hasMoldura.checked)
+  {
+    generateQRCodeWithRoundedFrameSVG('qrCodeContainer', qrdatatext, qrlabeltext, {
+        frameColor,
+        labelColor,
+        qrBackground,
+        labelFont
+    });
+  }
+  else
+  {
+    const qr = new QRCode(qrCodeContainer, {
+      text: qrdatatext,
+      width: 256,            // Largura do QR Code
+      height: 256,           // Altura do QR Code
+      colorDark: "#000000",  // Cor escura (linhas do QR Code)
+      colorLight: "#ffffff", // Cor clara (fundo do QR Code)
+      correctLevel: 2 // Nível de correção de erro
   });
+  }
 }
 
 function generateQRCodeWithRoundedFrameSVG(elementId, text, label, options) {
@@ -26,7 +41,7 @@ function generateQRCodeWithRoundedFrameSVG(elementId, text, label, options) {
   const labelHeight = 40;
   const borderRadius = 15;
 
-  QRCode.toString(text, { type: "svg", margin: 0, width: qrCodeSize }, function (err, qrSVG) {
+  QRCodeModern.toString(text, { type: "svg", margin: 0, width: qrCodeSize }, function (err, qrSVG) {
       if (err) throw err;
 
       const svgNS = "http://www.w3.org/2000/svg";
