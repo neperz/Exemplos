@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3957723726095018"
-     crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8457343375575094"
+  crossorigin="anonymous"></script>
   <title>Gerador de QR Code</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="estilo.css">
@@ -21,11 +21,15 @@
   <form>
     <label for="text">Digite o texto para gerar o QR Code:</label>
     <input type="text" id="text" value="https://wwww.wikicode.com.br"><br>
-    <label for="qrlabel">Digite o texto que vai aparecer abaixo do QR Code:</label>
-    <input type="text" id="qrlabel" value="SCAM ME"><br>
+
     
-    <input type="checkbox" id="moldura" checked> Com moldulra?<br>
+    <input type="checkbox" id="moldura"> Com moldura?<br>
+
+    <div id="configsMoldura" style="display: none; margin-top: 10px; padding: 10px; background-color: #f0f0f0; border: 1px solid #ccc;">
     <!-- Configurações do QR Code -->
+    <label for="qrlabel">Digite o texto que vai aparecer abaixo da moldura:</label>
+    <input type="text" id="qrlabel" value="SCAM ME"><br>
+
     <label>Cor da Moldura:</label>
     <input type="color" id="frameColor" value="#000000">
     <br><br>
@@ -46,14 +50,28 @@
         <option value="Courier New">Courier New</option>
         <option value="Georgia">Georgia</option>
     </select>
-    <br><br>
-
+    <br>
+  </div><br>
     <button type="button" onclick="generateQRCode()">Gerar QR Code</button>
 
     <!-- Container onde o QR Code será renderizado -->
    <center> 
     <div id="qrCodeContainer" style="margin-top: 20px;"></div>    
   </center>
+<script>
+  const checkbox = document.getElementById('moldura');
+const contentDiv = document.getElementById('configsMoldura');
 
+// Adiciona um evento de mudança (change) ao checkbox
+checkbox.addEventListener('change', function () {
+    if (checkbox.checked) {
+        // Mostra a div
+        contentDiv.style.display = 'block';
+    } else {
+        // Oculta a div
+        contentDiv.style.display = 'none';
+    }
+});
+</script>
    </body>
 </html>

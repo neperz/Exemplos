@@ -132,3 +132,4 @@ function downloadSVGAsPNG(svgElement, fileName) {
   };
   img.src = url;
 }
+
