@@ -7,18 +7,48 @@
   <title>Gerador de QR Code</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="estilo.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js"></script>
+  <script src="script.js"></script>
+
 </head>
 <body>
   <h1>Gerador de QR Code</h1>
   <form>
     <label for="text">Digite o texto para gerar o QR Code:</label>
-    <input type="text" id="text">
-    <button type="button" onclick="gerarQRCode()">Gerar QR Code</button>
-  </form>
-  <div id="qrcode"></div>
-  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <input type="text" id="text" value="https://wwww.wikicode.com.br"><br>
+    <label for="qrlabel">Digite o texto que vai aparecer abaixo do QR Code:</label>
+    <input type="text" id="qrlabel" value="SCAM ME"><br>
+    
 
+    <!-- Configurações do QR Code -->
+    <label>Cor da Moldura:</label>
+    <input type="color" id="frameColor" value="#000000">
+    <br><br>
 
-  <script src="script.js"></script>
-</body>
+    <label>Cor da Label (Texto):</label>
+    <input type="color" id="labelColor" value="#FFFFFF">
+    <br><br>
+
+    <label>Cor do Fundo do QR Code:</label>
+    <input type="color" id="qrBackground" value="#FFFFFF">
+    <br><br>
+
+    <label>Fonte da Label:</label>
+    <select id="labelFont">
+        <option value="Arial">Arial</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Georgia">Georgia</option>
+    </select>
+    <br><br>
+
+    <button type="button" onclick="generateQRCode()">Gerar QR Code</button>
+
+    <!-- Container onde o QR Code será renderizado -->
+   <center> 
+    <div id="qrCodeContainer" style="margin-top: 20px;"></div>
+  </center>
+
+   </body>
 </html>
